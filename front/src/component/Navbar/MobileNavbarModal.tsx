@@ -42,7 +42,9 @@ export const MobileNavbarModal = ({ isOpen, onClose }: { isOpen: boolean; onClos
       >
         <VStack w="full" align="flex-start" spacing="44px">
           <HStack w="full" justify="space-between">
-            <Logo />
+            <Link href="/">
+              <Logo />
+            </Link>
             <CloseButton onClick={onClose} />
           </HStack>
           <Accordion w="full" allowToggle>
@@ -68,28 +70,16 @@ export const MobileNavbarModal = ({ isOpen, onClose }: { isOpen: boolean; onClos
                 </VStack>
               </AccordionPanel>
             </AccordionItem>
-
             <AccordionItem py="10px">
               <h2>
-                <AccordionButton>
+                <AccordionButton as={Link} href="/tutor">
                   <Box as="span" flex="1" textAlign="left">
-                    <Text fontSize="xl" fontWeight={600} _hover={{ cursor: 'pointer' }}>
+                    <Text as={Link} href="/tutor" fontSize="xl" fontWeight={600} _hover={{ cursor: 'pointer' }}>
                       튜터
                     </Text>
                   </Box>
-                  <AccordionIcon />
                 </AccordionButton>
               </h2>
-              <AccordionPanel pb={4}>
-                <VStack w="full" align="flex-start" spacing="20px">
-                  <Link href="/tutor/weekly_report">
-                    <Text fontSize="md">주간 보고서</Text>
-                  </Link>
-                  <Link href="/tutor/file_submission">
-                    <Text fontSize="md">서류 제출</Text>
-                  </Link>
-                </VStack>
-              </AccordionPanel>
             </AccordionItem>
           </Accordion>
         </VStack>
