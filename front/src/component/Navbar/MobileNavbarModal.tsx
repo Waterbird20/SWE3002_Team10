@@ -21,6 +21,7 @@ import Link from 'next/link';
 import logo from '../Layout/Logo.png';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import { Logo } from '../common/Logo';
 
 export const MobileNavbarModal = ({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) => {
   const router = useRouter();
@@ -35,13 +36,13 @@ export const MobileNavbarModal = ({ isOpen, onClose }: { isOpen: boolean; onClos
       <DrawerContent
         px={{ base: '20px', md: '50px' }}
         py={{ base: '35px', md: '50px' }}
-        fontFamily="Montserrat"
+        fontFamily="Spoqa Han Sans Neo"
         maxH="100vh"
         overflow="scroll"
       >
         <VStack w="full" align="flex-start" spacing="44px">
           <HStack w="full" justify="space-between">
-            <Image src={logo} alt="logo" width={200} />
+            <Logo />
             <CloseButton onClick={onClose} />
           </HStack>
           <Accordion w="full" allowToggle>
@@ -59,14 +60,10 @@ export const MobileNavbarModal = ({ isOpen, onClose }: { isOpen: boolean; onClos
               <AccordionPanel pb={4}>
                 <VStack w="full" align="flex-start" spacing="20px">
                   <Link href="/class/tutee">
-                    <Text fontSize="md" fontWeight={600}>
-                      튜티
-                    </Text>
+                    <Text fontSize="md">튜티</Text>
                   </Link>
                   <Link href="/class/tutor">
-                    <Text fontSize="md" fontWeight={600}>
-                      튜터
-                    </Text>
+                    <Text fontSize="md">튜터</Text>
                   </Link>
                 </VStack>
               </AccordionPanel>
@@ -86,14 +83,10 @@ export const MobileNavbarModal = ({ isOpen, onClose }: { isOpen: boolean; onClos
               <AccordionPanel pb={4}>
                 <VStack w="full" align="flex-start" spacing="20px">
                   <Link href="/tutor/weekly_report">
-                    <Text fontSize="md" fontWeight={500}>
-                      주간 보고서
-                    </Text>
+                    <Text fontSize="md">주간 보고서</Text>
                   </Link>
                   <Link href="/tutor/file_submission">
-                    <Text fontSize="md" fontWeight={500}>
-                      서류 제출
-                    </Text>
+                    <Text fontSize="md">서류 제출</Text>
                   </Link>
                 </VStack>
               </AccordionPanel>

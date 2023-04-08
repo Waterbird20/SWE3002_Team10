@@ -4,9 +4,9 @@ import Link from 'next/link';
 
 export const Navbar = () => {
   return (
-    <HStack spacing="60px" fontWeight={500}>
+    <HStack spacing="10px" fontWeight={500}>
       <Menu>
-        <MenuButton as={Text} _hover={{ cursor: 'pointer' }}>
+        <MenuButton w="120px" as={Text} _hover={{ cursor: 'pointer' }}>
           모집과목
         </MenuButton>
         <MenuList fontSize="xs" minW="120px">
@@ -19,7 +19,7 @@ export const Navbar = () => {
         </MenuList>
       </Menu>
       <Menu>
-        <MenuButton as={Text} _hover={{ cursor: 'pointer' }}>
+        <MenuButton w="120px" as={Text} _hover={{ cursor: 'pointer' }}>
           튜터
         </MenuButton>
         <MenuList fontSize="xs" minW="120px">

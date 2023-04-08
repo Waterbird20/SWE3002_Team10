@@ -5,8 +5,8 @@ import Link from 'next/link';
 export const HomeHero = () => {
   return (
     <VStack w="full" h="auto" spacing="24px">
-      <Box w="full" overflow="hidden">
-        <Image src={main_hero.src} alt="main_hero" w="full" />
+      <Box w="full" minH="200px" overflow="hidden">
+        <Image src={main_hero.src} alt="main_hero" h="full" w="full" objectFit="cover" />
       </Box>
       <Flex flexDir={{ base: 'column', md: 'row' }} w="full" columnGap="50px" rowGap="12px">
         <Text

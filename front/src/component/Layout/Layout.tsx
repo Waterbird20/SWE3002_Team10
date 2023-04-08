@@ -1,21 +1,11 @@
-import {
-  Box,
-  HStack,
-  Flex,
-  Spinner,
-  useColorModeValue,
-  VStack,
-  Text,
-  useMediaQuery,
-  useDisclosure,
-} from '@chakra-ui/react';
+import { Box, HStack, Flex, VStack, Text, useMediaQuery, useDisclosure } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import logo from './Logo.png';
 import { Navbar } from '../Navbar/Navbar';
 import { MobileNavbarModal } from '../Navbar/MobileNavbarModal';
 import menu_burger from './menu-icon-dark.svg';
+import { Logo } from '../common/Logo';
 
 export const Layout = ({ children }: { children: ReactNode }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -35,12 +25,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
       <VStack w="full" h="auto" maxW="1100px" px="20px" justify="space-between" spacing="50px">
         <HStack w="full" justify="space-between">
           <Link href="/">
-            <HStack spacing="4px">
-              <Image width={isSm ? 120 : 180} src={logo} alt="logo" />
-              <Text color="#5A5B6C" fontSize={{ base: 'sm', md: 'xl' }} fontWeight={600}>
-                성균튜터링
-              </Text>
-            </HStack>
+            <Logo />
           </Link>
           {isSm ? (
             <>
