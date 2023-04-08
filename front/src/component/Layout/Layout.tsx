@@ -35,7 +35,12 @@ export const Layout = ({ children }: { children: ReactNode }) => {
       <VStack w="full" h="auto" maxW="1100px" px="20px" justify="space-between" spacing="50px">
         <HStack w="full" justify="space-between">
           <Link href="/">
-            <Image width={isSm ? 180 : 250} src={logo} alt="logo" />
+            <HStack spacing="4px">
+              <Image width={isSm ? 120 : 180} src={logo} alt="logo" />
+              <Text color="#5A5B6C" fontSize={{ base: 'sm', md: 'xl' }} fontWeight={600}>
+                성균튜터링
+              </Text>
+            </HStack>
           </Link>
           {isSm ? (
             <>

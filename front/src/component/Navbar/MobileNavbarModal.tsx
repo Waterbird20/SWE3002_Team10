@@ -49,7 +49,7 @@ export const MobileNavbarModal = ({ isOpen, onClose }: { isOpen: boolean; onClos
               <h2>
                 <AccordionButton>
                   <Box as="span" flex="1" textAlign="left">
-                    <Text fontSize="lg" fontWeight={600} _hover={{ cursor: 'pointer' }}>
+                    <Text fontSize="xl" fontWeight={600} _hover={{ cursor: 'pointer' }}>
                       모집과목
                     </Text>
                   </Box>
@@ -57,14 +57,14 @@ export const MobileNavbarModal = ({ isOpen, onClose }: { isOpen: boolean; onClos
                 </AccordionButton>
               </h2>
               <AccordionPanel pb={4}>
-                <VStack w="full" align="flex-start">
+                <VStack w="full" align="flex-start" spacing="20px">
                   <Link href="/class/tutee">
-                    <Text fontSize="lg" fontWeight={600}>
+                    <Text fontSize="md" fontWeight={600}>
                       튜티
                     </Text>
                   </Link>
                   <Link href="/class/tutor">
-                    <Text fontSize="lg" fontWeight={600}>
+                    <Text fontSize="md" fontWeight={600}>
                       튜터
                     </Text>
                   </Link>
@@ -76,7 +76,7 @@ export const MobileNavbarModal = ({ isOpen, onClose }: { isOpen: boolean; onClos
               <h2>
                 <AccordionButton>
                   <Box as="span" flex="1" textAlign="left">
-                    <Text fontSize="lg" fontWeight={600} _hover={{ cursor: 'pointer' }}>
+                    <Text fontSize="xl" fontWeight={600} _hover={{ cursor: 'pointer' }}>
                       튜터
                     </Text>
                   </Box>
@@ -86,12 +86,12 @@ export const MobileNavbarModal = ({ isOpen, onClose }: { isOpen: boolean; onClos
               <AccordionPanel pb={4}>
                 <VStack w="full" align="flex-start" spacing="20px">
                   <Link href="/tutor/weekly_report">
-                    <Text fontSize="lg" fontWeight={500}>
+                    <Text fontSize="md" fontWeight={500}>
                       주간 보고서
                     </Text>
                   </Link>
                   <Link href="/tutor/file_submission">
-                    <Text fontSize="lg" fontWeight={500}>
+                    <Text fontSize="md" fontWeight={500}>
                       서류 제출
                     </Text>
                   </Link>
