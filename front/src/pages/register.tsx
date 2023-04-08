@@ -1,4 +1,5 @@
 import { Button, HStack, Input, InputGroup, InputLeftAddon, Text, VStack } from '@chakra-ui/react';
+import Link from 'next/link';
 import { useState } from 'react';
 
 export default function Register() {
@@ -26,7 +27,7 @@ export default function Register() {
         </InputGroup>
       </VStack>
       <HStack w="full" color="white">
-        <Button w="full" bg="#8D8E8B">
+        <Button as={Link} href="/" w="full" bg="#8D8E8B">
           뒤로
         </Button>
         <Button w="full" bg="#48702B">
