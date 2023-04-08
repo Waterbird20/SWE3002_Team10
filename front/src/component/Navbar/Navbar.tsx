@@ -11,10 +11,14 @@ export const Navbar = () => {
         </MenuButton>
         <MenuList fontSize="xs" minW="120px">
           <Link href="/class/tutee">
-            <MenuItem>튜티</MenuItem>
+            <MenuItem fontSize="sm" fontWeight={500}>
+              튜티 - Tutee
+            </MenuItem>
           </Link>
           <Link href="/class/tutor">
-            <MenuItem>튜터</MenuItem>
+            <MenuItem fontSize="sm" fontWeight={500}>
+              튜터 - Tutor
+            </MenuItem>
           </Link>
         </MenuList>
       </Menu>
@@ -24,10 +28,14 @@ export const Navbar = () => {
         </MenuButton>
         <MenuList fontSize="xs" minW="120px">
           <Link href="/tutor/weekly_report">
-            <MenuItem>주간 보고서</MenuItem>
+            <MenuItem fontSize="sm" fontWeight={500}>
+              주간 보고서
+            </MenuItem>
           </Link>
           <Link href="/tutor/file_submission">
-            <MenuItem>서류 제출</MenuItem>
+            <MenuItem fontSize="sm" fontWeight={500}>
+              서류 제출
+            </MenuItem>
           </Link>
         </MenuList>
       </Menu>

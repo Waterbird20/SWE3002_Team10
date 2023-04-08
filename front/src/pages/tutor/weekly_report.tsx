@@ -1,9 +1,10 @@
-import { Text, VStack } from '@chakra-ui/react';
+import { WeeklyReportContainer } from '@/component/WeeklyReport/WeeklyReportContainer';
+import { VStack } from '@chakra-ui/react';
 
 export default function WeeklyReport() {
   return (
-    <VStack>
-      <Text>WeeklyReport</Text>
+    <VStack w="full" maxW="700px" h="auto" spacing="50px">
+      <WeeklyReportContainer />
     </VStack>
   );
 }

@@ -22,7 +22,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
       fontFamily="Spoqa Han Sans Neo"
       py="40px"
     >
-      <VStack w="full" h="auto" maxW="1100px" px="20px" justify="space-between" spacing="50px">
+      <VStack w="full" h="auto" maxW="1100px" px="20px" justify="space-between" spacing="60px">
         <HStack w="full" justify="space-between">
           <Link href="/">
             <Logo />
