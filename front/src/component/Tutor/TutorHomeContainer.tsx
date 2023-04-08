@@ -14,11 +14,11 @@ export const TutorHomeContainer = () => {
             <HStack w="full" justify="space-between">
               <Text fontWeight={500}>{el.className}</Text>
               <HStack>
-                <Button size="sm">
-                  <Link href={`/tutor/${el.className}/weekly_report`}>주간보고서</Link>
+                <Button as={Link} href={`/tutor/${el.className}/weekly_report`} size="sm">
+                  주간보고서
                 </Button>
-                <Button size="sm">
-                  <Link href={`/tutor/${el.className}/file_submission`}>서류 제출</Link>
+                <Button as={Link} size="sm" href={`/tutor/${el.className}/file_submission`}>
+                  서류 제출
                 </Button>
               </HStack>
             </HStack>

@@ -17,7 +17,7 @@ export default function Login() {
             p={0}
             children={<GenericAvatarIcon boxSize="25px" color="black" />}
           />
-          <Input h="50px" w="full" bg="white" textAlign="end" />
+          <Input h="50px" w="full" bg="white" placeholder="아이디" />
         </InputGroup>
         <InputGroup>
           <InputLeftAddon
@@ -27,7 +27,7 @@ export default function Login() {
             p={0}
             children={<LockIcon boxSize="20px" color="black" />}
           />
-          <Input h="50px" type="password" w="full" bg="white" textAlign="end" />
+          <Input h="50px" type="password" w="full" bg="white" placeholder="비밀번호" />
         </InputGroup>
       </VStack>
       <Button h="50px" size="md" w="full" bg="#48702B" color="white">

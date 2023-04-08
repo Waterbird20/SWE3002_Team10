@@ -16,12 +16,11 @@ export const TuteeClassContainer = () => {
   }, [searchTerm]);
 
   return (
-    <VStack w="full" maxW="500px" spacing="50px">
+    <VStack w="full" maxW="700px" spacing="50px">
       <HStack w="full" justify="space-between">
-        <VStack align="flex-start" spacing="0px" fontSize="xl" fontWeight={600}>
-          <Text>튜티 (Tutee)</Text>
-          <Text>모집 과목</Text>
-        </VStack>
+        <Text fontSize="xl" fontWeight={600}>
+          모집 과목 - 튜티 (Tutee)
+        </Text>
         <Input w="300px" bg="white" type="search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
       </HStack>
       <VStack w="full" spacing="12px">

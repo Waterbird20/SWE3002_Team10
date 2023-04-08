@@ -11,7 +11,7 @@ export const WeeklyReportList = () => {
   if (!curClass) return null;
 
   return (
-    <VStack w="full" spacing="20px" align="flex-start">
+    <VStack w="full" spacing="20px" align="flex-start" fontSize="sm">
       {curClass.files.map((file, i) => (
         <WeeklyReportListItem key={i} file={file} />
       ))}

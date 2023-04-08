@@ -1,4 +1,4 @@
-import { HStack, Text, VStack } from '@chakra-ui/react';
+import { Box, Button, HStack, Text, VStack } from '@chakra-ui/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { IdentityCard } from './IdentityCard';
@@ -12,14 +12,20 @@ export const FileSubmissionContainer = () => {
   const { className } = router.query;
 
   return (
-    <VStack w="full" bg="white" borderRadius="5px" px="40px" py="20px" spacing="50px">
+    <VStack w="full" spacing="30px" align="flex-start">
+      <Button size="sm" as={Link} href="/tutor">
+        {'<'}
+      </Button>
       <VStack w="full" align="flex-start" spacing={0}>
         <Text fontSize="xl" fontWeight={600}>
           튜터 서류 제출
         </Text>
         <Text>{className}</Text>
       </VStack>
-      <VStack w="full" spacing="30px">
+
+      <Box w="full" h="1px" bg="gray.300" />
+
+      <VStack w="full" spacing="20px">
         <IdentityCard />
         <AccountCopy />
         <PaymentCertificate />
