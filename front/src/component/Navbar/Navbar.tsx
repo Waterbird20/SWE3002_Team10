@@ -22,23 +22,11 @@ export const Navbar = () => {
           </Link>
         </MenuList>
       </Menu>
-      <Menu>
-        <MenuButton w="120px" as={Text} _hover={{ cursor: 'pointer' }}>
+      <Link href="/tutor">
+        <Text w="120px" as={Text} _hover={{ cursor: 'pointer' }}>
           튜터
-        </MenuButton>
-        <MenuList fontSize="xs" minW="120px">
-          <Link href="/tutor/weekly_report">
-            <MenuItem fontSize="sm" fontWeight={500}>
-              주간 보고서
-            </MenuItem>
-          </Link>
-          <Link href="/tutor/file_submission">
-            <MenuItem fontSize="sm" fontWeight={500}>
-              서류 제출
-            </MenuItem>
-          </Link>
-        </MenuList>
-      </Menu>
+        </Text>
+      </Link>
     </HStack>
   );
 };

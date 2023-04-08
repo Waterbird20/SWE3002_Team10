@@ -1,8 +1,7 @@
 import { HStack, Text, VStack } from '@chakra-ui/react';
 import { TutorClassListItem } from '../Class/ClassListItem/TutorClassListItem';
 import Link from 'next/link';
-
-const classList = ['AI', '데이터베이스', '웹 프로그래밍', '알고리즘'];
+import { totalClassList } from '@/mock/totalClassList';
 
 export const HomeTutorClassContainer = () => {
   return (
@@ -16,8 +15,7 @@ export const HomeTutorClassContainer = () => {
         </Text>
       </HStack>
       <VStack w="full" spacing="16px">
-        s
-        {classList.map((className) => (
+        {totalClassList.slice(0, 5).map((className) => (
           <TutorClassListItem className={className} />
         ))}
       </VStack>

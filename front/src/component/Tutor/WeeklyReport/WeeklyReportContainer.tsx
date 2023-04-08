@@ -1,18 +1,13 @@
 import { Button, Flex, HStack, Input, Text, VStack, useToast } from '@chakra-ui/react';
 import { ChangeEvent, useState } from 'react';
-import { removeFile, submitFile } from './utils';
+import { removeFile, submitWeeklyReport } from './utils';
 import { WeeklyReportUpload } from './WeeklyReportUpload';
 import { WeeklyReportList } from './WeeklyReportList';
+import { useRouter } from 'next/router';
 
 export const WeeklyReportContainer = () => {
-  const { className, files } = {
-    className: '분자생물학',
-    files: [
-      '분자생물학 2회차 2023.3.31 (금) 1시간 30분.pdf',
-      '분자생물학 2회차 2023.3.31 (금) 1시간 30분.pdf',
-      '분자생물학 2회차 2023.3.31 (금) 1시간 30분.pdf',
-    ],
-  };
+  const router = useRouter();
+  const { className } = router.query;
 
   return (
     <>

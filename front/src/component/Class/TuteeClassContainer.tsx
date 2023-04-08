@@ -1,45 +1,30 @@
 import { HStack, Input, Text, VStack } from '@chakra-ui/react';
 import { TuteeClassListItem } from './ClassListItem/TuteeClassListItem';
 import { useEffect, useState } from 'react';
-
-const classList = [
-  'AI',
-  '데이터베이스',
-  '웹 프로그래밍',
-  '알고리즘',
-  'AI',
-  '데이터베이스',
-  '웹 프로그래밍',
-  '알고리즘',
-  'AI',
-  '데이터베이스',
-  '웹 프로그래밍',
-  '알고리즘',
-  'AI',
-  '데이터베이스',
-  '웹 프로그래밍',
-  '알고리즘',
-];
+import { totalClassList } from '@/mock/totalClassList';
 
 export const TuteeClassContainer = () => {
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredClassList, setFilteredClassList] = useState(classList);
+  const [filteredClassList, setFilteredClassList] = useState(totalClassList);
 
   useEffect(() => {
-    if (searchTerm === '') setFilteredClassList(classList);
+    if (searchTerm === '') setFilteredClassList(totalClassList);
     else
-      setFilteredClassList(classList.filter((className) => className.toLowerCase().includes(searchTerm.toLowerCase())));
+      setFilteredClassList(
+        totalClassList.filter((className) => className.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
   }, [searchTerm]);
 
   return (
-    <VStack w="full" maxW="700px" spacing="50px">
+    <VStack w="full" maxW="500px" spacing="50px">
       <HStack w="full" justify="space-between">
-        <Text fontSize="xl" fontWeight={600}>
-          모집 과목 - 튜티 (Tutee)
-        </Text>
+        <VStack align="flex-start" spacing="0px" fontSize="xl" fontWeight={600}>
+          <Text>튜티 (Tutee)</Text>
+          <Text>모집 과목</Text>
+        </VStack>
         <Input w="300px" bg="white" type="search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
       </HStack>
-      <VStack w="full" spacing="20px">
+      <VStack w="full" spacing="12px">
         {filteredClassList.map((className) => (
           <TuteeClassListItem className={className} />
         ))}

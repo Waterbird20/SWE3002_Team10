@@ -8,7 +8,7 @@ export const HomeHero = () => {
       <Box w="full" minH="200px" overflow="hidden">
         <Image src={main_hero.src} alt="main_hero" h="full" w="full" objectFit="cover" />
       </Box>
-      <Flex flexDir={{ base: 'column', md: 'row' }} w="full" columnGap="50px" rowGap="12px">
+      {/* <Flex flexDir={{ base: 'column', md: 'row' }} w="full" columnGap="50px" rowGap="12px">
         <Text
           as={Link}
           href="/tutor/weekly_report"
@@ -35,7 +35,7 @@ export const HomeHero = () => {
         >
           튜터 서류 제출
         </Text>
-      </Flex>
+      </Flex> */}
     </VStack>
   );
 };
