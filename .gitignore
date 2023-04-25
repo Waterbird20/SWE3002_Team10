@@ -39,4 +39,5 @@ next-env.d.ts
 # dotenv environment variable files
 .env
 
-*.pyc
+*.pyc.venv
+**/.venv
