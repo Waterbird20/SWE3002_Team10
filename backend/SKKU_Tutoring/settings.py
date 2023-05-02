@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import pymysql
+# pymysql.version_info = (1, 4, 3, "final", 0)
+# pymysql.install_as_MySQLdb()
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'drf_yasg',
     'SKKU_Tutoring',
 ]
 REST_FRAMEWORK = { # 권한 설정
@@ -138,3 +141,5 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
