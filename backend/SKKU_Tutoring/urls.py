@@ -19,6 +19,7 @@ from django.urls import path
 from SKKU_Tutoring import views
 from django.conf.urls import include
 from django.views.generic import TemplateView
+from django.urls import re_path
 from drf_yasg.views import get_schema_view
 from drf_yasg       import openapi
 from rest_framework import permissions
@@ -27,7 +28,7 @@ schema_view = get_schema_view(
     openapi.Info(
         title="SKKU tutoring",
         default_version='1.1.1',
-        description="Team10 API",
+        description="Team10 API 문서",
         terms_of_service="https://www.google.com/policies/terms/",
         contact=openapi.Contact(email="이메일"), # 부가정보
         license=openapi.License(name="mit"),     # 부가정보
@@ -37,9 +38,9 @@ schema_view = get_schema_view(
 )
 
 urlpatterns = [
-    path(r'swagger(?P<format>\.json|\.yaml)', schema_view.without_ui(cache_timeout=0), name='schema-json'),
-    path(r'swagger', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path(r'redoc', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-v1'),
+    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0), name='schema-json'),
+    re_path(r'^swagger/$', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     
     path('admin/', admin.site.urls),
     path('accountsList', views.account_list),
