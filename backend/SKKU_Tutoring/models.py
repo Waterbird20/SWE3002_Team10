@@ -13,3 +13,13 @@ class StudentId(models.Model):
     student_id = models.IntegerField()
     Tutor_Course_id = models.CharField(max_length=60)
     Tutee_Course_id = models.CharField(max_length=60)
+    
+class Tutoring(models.Model):
+    Tutoring = models.CharField(max_length = 45)
+    tutor_id = models.IntegerField()
+    professor = models.CharField(max_length = 45)
+    Tutee = models.CharField(max_length = 100)
+    Grade = models.FloatField()
+    Syllabus = models.CharField(max_length = 45)
+    Completion = models.CharField(max_length = 5)
+    Approval = models.CharField(max_length=5)
