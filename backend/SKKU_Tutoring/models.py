@@ -10,3 +10,13 @@ class StudentInfo(models.Model):
     class Meta:
         managed = False
         db_table = 'Tutoring_account'
+        
+class Tutoring(models.Model):
+    Tutoring = models.CharField(max_length = 45)
+    tutor_id = models.IntegerField()
+    professor = models.CharField(max_length = 45)
+    Tutee = models.CharField(max_length = 100)
+    Grade = models.FloatField()
+    Syllabus = models.CharField(max_length = 45)
+    Completion = models.CharField(max_length = 5)
+    Approval = models.CharField(max_length=5)
