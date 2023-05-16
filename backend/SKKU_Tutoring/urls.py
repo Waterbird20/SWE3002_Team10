@@ -43,12 +43,10 @@ urlpatterns = [
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     
     path('admin/', admin.site.urls),
-    path('accountsList', views.account_list),
-    path('accountsRegister', views.account_register),
-    path('accountShow/<int:pk>', views.account_show),
-    path('accountModify/<int:pk>', views.account_modify),
-    path('accountDelete/<int:pk>', views.account_delete),
-    path('login', views.login),
+
+    path('all-student',views.all_student),
+    path('account-register', views.account_register),
+    path('account-show/<str:pk>', views.account_show),
     path('auth', include('rest_framework.urls', namespace='rest_framework')),
 
 ]
