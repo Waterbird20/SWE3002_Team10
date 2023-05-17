@@ -11,7 +11,7 @@ conda activate 가상환경이름
 2. dependencies 설치
 ```
 cd backend
-pip install -r requrements.txt
+pip install -r requirements.txt
 ```
 3. 로컬 서버 열기
 ```
