@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 
 import os
 import pymysql
-# pymysql.version_info = (1, 4, 3, "final", 0)
-# pymysql.install_as_MySQLdb()
+pymysql.version_info = (1, 4, 3, "final", 0)
+pymysql.install_as_MySQLdb()
 from dotenv import load_dotenv
 load_dotenv()
 
