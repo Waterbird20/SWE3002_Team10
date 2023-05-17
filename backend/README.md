@@ -6,6 +6,7 @@
 1. 가상환경 및 파이썬 버전
 ```
 conda create -n 가상환경이름 python=3.9.7  
+conda activate 가상환경이름
 ```
 2. dependencies 설치
 ```
