@@ -71,8 +71,8 @@ urlpatterns = [
     path('admin-final-approve',views.AdminFinalApprove.as_view()),
     path('admin-final-return',views.AdminFinalReturn.as_view()),
     
-    path('tutoring-apply',views.TutoringApply.as_view()),
-    path('tutoring-out',views.TutoringOut.as_view()),
+    path('tutoring-apply/<str:student_id>/<str:tutoring_id>/',views.TutoringApply.as_view()),
+    path('tutoring-out/<str:student_id>/<str:tutoring_id>/',views.TutoringOut.as_view()),
     path('auth', include('rest_framework.urls', namespace='rest_framework')),
 
 ]
