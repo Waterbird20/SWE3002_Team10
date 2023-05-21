@@ -544,15 +544,13 @@ class TutoringApply(APIView):
 
     def post(self, request):
         student_id = request.data.get('student_id')
-        course_number = request.data.get("course_number")
+        tutoring_id = request.data.get("tutoring_id")
         # StudentInfo 객체 찾기
         try:
             student_info = StudentInfo.objects.get(student_id=student_id)
         except StudentInfo.DoesNotExist:
             return Response({"error": "StudentInfo 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
-
-        tutoring_id = student_info.student_id + '_' + course_number
 
         # Tutoring 객체 찾기
         try:
@@ -613,15 +611,13 @@ class TutoringOut(APIView):
 
     def post(self, request):
         student_id = request.data.get('student_id')
-        course_number = request.data.get("course_number")
+        tutoring_id = request.data.get("tutoring_id")
         # StudentInfo 객체 찾기
         try:
             student_info = StudentInfo.objects.get(student_id=student_id)
         except StudentInfo.DoesNotExist:
             return Response({"error": "StudentInfo 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
-
-        tutoring_id = student_info.student_id + '_' + course_number
 
         # Tutoring 객체 찾기
         try:
