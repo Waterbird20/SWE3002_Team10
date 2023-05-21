@@ -43,7 +43,8 @@ urlpatterns = [
     re_path(r'^redoc/$', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc'),
     
 
-
+    path('admin/', admin.site.urls),
+    
     path('all-student',views.all_student),
     path('account-register', views.account_register),
     path('account-show/<str:pk>', views.account_show),
@@ -59,6 +60,7 @@ urlpatterns = [
     path('image_load', views.image_load),
     
     path('weekly-upload',views.WeeklyReportUpload.as_view()),
+    path('my-weekly',views.MyWeekly.as_view()),
     path('admin-waiting-weekly-list',views.AdminWaitingWeeklyList.as_view()),
     path('admin-weekly-approve',views.AdminWeeklyApprove.as_view()),
     path('admin-weekly-return',views.AdminWeeklyReturn.as_view()),
@@ -67,6 +69,7 @@ urlpatterns = [
     path('admin-final-return',views.AdminFinalReturn.as_view()),
     
     path('tutoring-apply',views.TutoringApply.as_view()),
+    path('tutoring-out',views.TutoringOut.as_view()),
     path('auth', include('rest_framework.urls', namespace='rest_framework')),
 
 ]

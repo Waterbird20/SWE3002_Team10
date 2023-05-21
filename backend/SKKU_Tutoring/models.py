@@ -64,6 +64,7 @@ class WeeklyReport(models.Model):
     num = models.IntegerField()
     time = models.CharField(max_length = 45)
     attendance = models.CharField(max_length = 45)
+    filename = models.CharField(max_length = 45)
     content = models.CharField(max_length=500)
     image_url = models.CharField(max_length=200)
     approval = models.IntegerField(blank=True)

@@ -260,7 +260,7 @@ class AdminTutoringReturn(APIView):
         tutoring_admin.save()
         
 ## 중간보고서 업로드
-## 학번, 학수번호, 몇회차, 시간, 참석현황, 이미지URL, 학습내용
+## 학번, 학수번호, 몇회차, 시간, 참석현황, 이미지URL, 학습내용, 과목이름, 날짜, 진행시간
 @permission_classes((permissions.AllowAny,))
 class WeeklyReportUpload(APIView):
 
@@ -271,10 +271,11 @@ class WeeklyReportUpload(APIView):
         time = request.data.get("time")
         attendance = request.data.get("attendance")
         imageURL = request.data.get('imageURL')
+        date = request.data.get('date')
+        during = request.data.get('during')
+        course_name = request.data.get('course_name')
         content = request.data.get("content")
-
-
-
+        
         tutoring_id = student_id + '_' + course_number
 
         # StudentInfo 객체 찾기
@@ -293,6 +294,7 @@ class WeeklyReportUpload(APIView):
             'attendance' : attendance,
             'content': content,
             'image_url' : imageURL,
+            'file_name' : course_name +' '+str(num)+'회차 ' + date + ' ' + during,
             'approval' : '0'
 
         }
@@ -310,8 +312,18 @@ class WeeklyReportUpload(APIView):
 class AdminWaitingWeeklyList(generics.ListAPIView):
     queryset = WeeklyReport.objects.filter(approval=0)
     serializer_class = WeeklyReportSerializer
-    
-    
+
+## 자신의 중간보고서
+## 학번, 학수번호
+@permission_classes((permissions.AllowAny,))
+class MyWeekly(APIView):
+    def post(self, request):
+        student_id = request.data.get('student_id')
+        course_number = request.data.get("course_number")
+        tutoring_id = student_id + '_' + course_number
+        reports = WeeklyReport.objects.filter(report_id__contains=tutoring_id)
+        report_list = list(reports.values())
+        return JsonResponse(report_list, safe=False)
 ## 중간보고서 승인
 ## 학번, 학수번호, 몇회차, 학습시간
 @permission_classes((permissions.AllowAny,))
@@ -497,7 +509,7 @@ class TutoringApply(APIView):
 ## 튜터링 철회(튜티)
 ## 학번, 학수번호, 튜터링개설자이름
 @permission_classes((permissions.AllowAny,))
-class TutoringApply(APIView):
+class TutoringOut(APIView):
 
     def post(self, request):
         student_id = request.data.get('student_id')
