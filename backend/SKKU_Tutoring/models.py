@@ -47,13 +47,26 @@ class Tutoring(models.Model):
     mid_report8 = models.CharField(max_length=500, blank=True)
     mid_report9 = models.CharField(max_length=500, blank=True)
     mid_report10 = models.CharField(max_length=500, blank=True)
-    credential_url = models.CharField(max_length=100, blank=True)
-    tongjang_url = models.CharField(max_length=100, blank=True)
-    ingunbee_url = models.CharField(max_length=100, blank=True)
-    receipt_url = models.CharField(max_length=100, blank=True)
-    report_url = models.CharField(max_length=100, blank=True)
-    report_url = models.CharField(max_length=1000, blank = True)
-    completion = models.CharField(max_length = 5, blank=True)
+    time = models.IntegerField()
+    credential_url = models.ImageField(null=True, upload_to="media", blank=True) # 수정
+    tongjang_url = models.ImageField(null=True, upload_to="media", blank=True) # 수정
+    ingunbee_url = models.ImageField(null=True, upload_to="media", blank=True) # 수정
+    receipt_url = models.ImageField(null=True, upload_to="media", blank=True) # 수정
+    report_url = models.ImageField(null=True, upload_to="media", blank=True) # 수정  form에서 빈 값을 허용
+    completion = models.CharField(max_length=100, blank=True)
     class Meta:
         managed = False
         db_table = 'Tutoring'
+
+class WeeklyReport(models.Model):
+    report_id = models.CharField(max_length = 100,primary_key=True)
+    course_number = models.CharField(max_length = 45)
+    num = models.IntegerField()
+    time = models.CharField(max_length = 45)
+    attendance = models.CharField(max_length = 45)
+    content = models.CharField(max_length=500)
+    image_url = models.CharField(max_length=200)
+    approval = models.IntegerField(blank=True)
+    class Meta:
+        managed = False
+        db_table = 'Weekly_Report'

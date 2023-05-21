@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from rest_framework.fields import SerializerMethodField
 # from .models import Account
-from .models import TutoringAdmin,StudentInfo,Tutoring
+from .models import TutoringAdmin,StudentInfo,Tutoring,WeeklyReport
 
 class TutoringAdminSerializer(serializers.ModelSerializer):
     class Meta:
@@ -17,4 +17,9 @@ class StudentInfoSerializer(serializers.ModelSerializer):
 class TutoringSerializer(serializers.ModelSerializer):
     class Meta:
         model = Tutoring
+        fields = "__all__"
+        
+class WeeklyReportSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = WeeklyReport
         fields = "__all__"
