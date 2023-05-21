@@ -47,6 +47,10 @@ urlpatterns = [
     path('all-student',views.all_student),
     path('account-register', views.account_register),
     path('account-show/<str:pk>', views.account_show),
+    
+    path('tutoring-propose',views.TutoringPropose.as_view()),
+    path('approved-tutoring-list',views.ApprovedTutoringList.as_view()),
+    path('waiting-tutoring-list',views.WaitingTutoringList.as_view()),
     path('auth', include('rest_framework.urls', namespace='rest_framework')),
 
 ]
