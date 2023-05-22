@@ -420,7 +420,7 @@ class MyWeekly(APIView):
     def post(self, request):
         student_id = request.data.get('student_id')
         course_number = request.data.get("course_number")
-        tutoring_id = student_id + '_' + course_number
+        tutoring_id = str(student_id) + '_' + str(course_number)
         reports = WeeklyReport.objects.filter(report_id__contains=tutoring_id)
         report_list = list(reports.values())
         return JsonResponse(report_list, safe=False)
