@@ -49,18 +49,36 @@ def all_student(request):
     return Response(serializer.data)
 
 ## 회원가입
-## email, 이름, 학번 정보 post
+## email, 학번, 이름, 관리자 여부(T)
 ## Tutor_Course_id, Tutee_Course_id는 공백 문자열로 저장됨
 @api_view(["POST"])
 @permission_classes((permissions.AllowAny,))
 def account_register(request):
-    if request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = StudentInfoSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
+    email = request.data.get('email')
+    name = request.data.get('name')
+    student_id = request.data.get('student_id')
+    admin = request.data.get('admin')
+    
+    if admin == 'T':
+        data = {
+            'student_id' : '0',
+            'email' : email,
+            'name' : 'admin',
+            'admin' : admin
+        }
+    else:
+        data = {
+            'student_id' : student_id,
+            'email' : email,
+            'name' : name
+        }
+
+    serializer = StudentInfoSerializer(data=data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+    
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 ## 튜터링 신청

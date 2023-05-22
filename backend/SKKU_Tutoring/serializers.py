@@ -12,7 +12,7 @@ class StudentInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = StudentInfo
         # fields = "__all__"
-        fields = ['student_id', 'email', 'name', 'Tutor_Course_id', 'Tutee_Course_id']
+        fields = ['student_id', 'email', 'name', 'Tutor_Course_id', 'Tutee_Course_id','admin']
 
 class TutoringSerializer(serializers.ModelSerializer):
     class Meta:

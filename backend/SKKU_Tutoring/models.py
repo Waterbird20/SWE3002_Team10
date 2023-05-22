@@ -21,6 +21,7 @@ class StudentInfo(models.Model):
     name = models.CharField(max_length = 45)
     Tutor_Course_id = models.CharField(max_length=60, blank=True)
     Tutee_Course_id = models.CharField(max_length=60, blank=True)
+    admin = models.CharField(max_length=45, blank=True)
     class Meta:
         managed = False
         db_table = 'Tutoring_account'
