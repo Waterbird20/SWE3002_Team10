@@ -544,11 +544,10 @@ class TutoringApply(APIView):
 
     def post(self, request):
         student_id = request.data.get('student_id')
-        tutor_name = request.data.get('tutor_name')
         course_number = request.data.get("course_number")
         # StudentInfo 객체 찾기
         try:
-            student_info = StudentInfo.objects.get(name=tutor_name)
+            student_info = StudentInfo.objects.get(name=student_id)
         except StudentInfo.DoesNotExist:
             return Response({"error": "StudentInfo 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
@@ -614,11 +613,10 @@ class TutoringOut(APIView):
 
     def post(self, request):
         student_id = request.data.get('student_id')
-        tutor_name = request.data.get('tutor_name')
         course_number = request.data.get("course_number")
         # StudentInfo 객체 찾기
         try:
-            student_info = StudentInfo.objects.get(name=tutor_name)
+            student_info = StudentInfo.objects.get(name=student_id)
         except StudentInfo.DoesNotExist:
             return Response({"error": "StudentInfo 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
@@ -656,6 +654,128 @@ class TutoringOut(APIView):
             return Response(serializer2.errors, status=status.HTTP_400_BAD_REQUEST)
 
         return Response(serializer1.data, serializer2.data, status=status.HTTP_202_ACCEPTED)
+
+@permission_classes((permissions.AllowAny,))
+def AdminWaitingFinalList(request):
+    weekly_reports = WeeklyReport.objects.all()
+
+    data = []
+    arr = []
+    
+    for weekly_report in weekly_reports:
+        if weekly_report.approval == 0 or weekly_report.approval == -1:
+            continue
+        
+        tmp = weekly_report.report_id.split('_')
+        tutoring_id = tmp[0] +'_'+ tmp[1]+'_' + tmp[2]
+        st = tmp[3]
+        
+        tmp_arr = []
+        tmp_arr.append(tutoring_id)
+        tmp_arr.append(st)
+        tmp_arr.append(weekly_report.time)
+        tmp_arr.append(weekly_report.attendance)
+
+        arr.append(tmp_arr)
+    
+    tutoring_dict = {}
+    for i in range(len(arr)):
+        try:
+            tutoring = Tutoring.objects.get(tutoring_id=arr[i][0])
+        except Tutoring.DoesNotExist:
+            return Response({"error": "Tutoring 객체를 찾을 수 없습니다."},
+                            status=status.HTTP_404_NOT_FOUND)
+        if arr[i][0] not in tutoring_dict:
+            tutee_dict = {}
+            for j in range(len(arr[i][3])):
+                if arr[i][3][j] == '-':
+                    break
+                if j == 0:
+                    if arr[i][3][j] == 'O':
+                        tutee_dict[tutoring.tutee1] = 'O'
+                    elif arr[i][3][j] == 'X':
+                        tutee_dict[tutoring.tutee1] = 'X'
+                if j == 1:
+                    if arr[i][3][j] == 'O':
+                        tutee_dict[tutoring.tutee2] = 'O'
+                    elif arr[i][3][j] == 'X':
+                        tutee_dict[tutoring.tutee2] = 'X'
+                if j == 2:
+                    if arr[i][3][j] == 'O':
+                        tutee_dict[tutoring.tutee3] = 'O'
+                    elif arr[i][3][j] == 'X':
+                        tutee_dict[tutoring.tutee3] = 'X'
+                if j == 3:
+                    if arr[i][3][j] == 'O':
+                        tutee_dict[tutoring.tutee4] = 'O'
+                    elif arr[i][3][j] == 'X':
+                        tutee_dict[tutoring.tutee4] = 'X'
+                if j == 4:
+                    if arr[i][3][j] == 'O':
+                        tutee_dict[tutoring.tutee5] = 'O'
+                    elif arr[i][3][j] == 'X':
+                        tutee_dict[tutoring.tutee5] = 'X'
+            tutoring_dict[arr[i][0]] = [1,arr[i][2],tutee_dict]
+        else:
+            tutoring_dict[arr[i][0]][0] += 1
+            tutoring_dict[arr[i][0]][1] += arr[i][2]
+            
+            tutee_dict = tutoring_dict[arr[i][0]][2]
+            for j in range(len(arr[i][3])):
+                if arr[i][3][j] == '-':
+                    break
+                if j == 0:
+                    if arr[i][3][j] == 'O':
+                        tutee_dict[tutoring.tutee1] += 'O'
+                    elif arr[i][3][j] == 'X':
+                        tutee_dict[tutoring.tutee1] += 'X'
+                if j == 1:
+                    if arr[i][3][j] == 'O':
+                        tutee_dict[tutoring.tutee2] += 'O'
+                    elif arr[i][3][j] == 'X':
+                        tutee_dict[tutoring.tutee2] += 'X'
+                if j == 2:
+                    if arr[i][3][j] == 'O':
+                        tutee_dict[tutoring.tutee3] += 'O'
+                    elif arr[i][3][j] == 'X':
+                        tutee_dict[tutoring.tutee3] += 'X'
+                if j == 3:
+                    if arr[i][3][j] == 'O':
+                        tutee_dict[tutoring.tutee4] += 'O'
+                    elif arr[i][3][j] == 'X':
+                        tutee_dict[tutoring.tutee4] += 'X'
+                if j == 4:
+                    if arr[i][3][j] == 'O':
+                        tutee_dict[tutoring.tutee5] += 'O'
+                    elif arr[i][3][j] == 'X':
+                        tutee_dict[tutoring.tutee5] += 'X'
+                tutoring_dict[arr[i][0]][2] = tutee_dict
+                
+            
+
+    for key,val in tutoring_dict.items():
+        
+        student_id = key.split('_')[0]
+        tutoring = get_object_or_404(Tutoring, tutoring_id=key)
+        student = get_object_or_404(StudentInfo, student_id = student_id)
+        final_data = {
+            'course_name' : tutoring.course_name,
+            'course_id' : tutoring.course_number,
+            'total_count' : val[0],
+            'total_time' : val[1],
+            'tutor_name' : student.name,
+            'status' : tutoring.completion,
+            'credential_url': str(tutoring.credential_url),
+            'tongjang_url' : str(tutoring.tongjang_url),
+            'ingunbee_url' : str(tutoring.ingunbee_url),
+            'receipt_url' : str(tutoring.receipt_url),
+            'report_url' : str(tutoring.report_url),
+            'tutee_attendance' : val[2]
+        }
+
+        data.append(final_data)
+
+    return JsonResponse(data, safe=False)
 
 ## 최종보고서 승인
 ## 학번, 학수번호

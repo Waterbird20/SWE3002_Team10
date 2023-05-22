@@ -67,6 +67,7 @@ urlpatterns = [
     path('admin-weekly-approve',views.AdminWeeklyApprove.as_view()),
     path('admin-weekly-return',views.AdminWeeklyReturn.as_view()),
     
+    path('admin-waiting-final-list', views.AdminWaitingFinalList),
     path('admin-final-approve',views.AdminFinalApprove.as_view()),
     path('admin-final-return',views.AdminFinalReturn.as_view()),
     
