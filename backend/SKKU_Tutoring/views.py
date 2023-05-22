@@ -20,8 +20,9 @@ from django.urls import reverse_lazy
 from django.views.generic import TemplateView   
 from django.views.generic import DetailView
 from .form import TutorForm
+from django.http import FileResponse
 
-## image
+## Tutor Data POST
 @api_view(["POST"])
 @permission_classes((permissions.AllowAny,))
 def image_load(request):
@@ -47,6 +48,26 @@ def image_load(request):
     else:
         return HttpResponse("BAD")
     
+## Tutor Data GET
+@api_view(["GET"])
+@permission_classes((permissions.AllowAny,))
+def get_file(request, pk, whatToGet):
+    data_total = Tutoring.objects.get(tutoring_id=pk)
+    if(whatToGet == "credential_url"):
+        image = data_total.credential_url
+    elif(whatToGet == "tongjang_url"):
+        image = data_total.tongjang_url
+    elif(whatToGet == "ingunbee_url"):
+        image = data_total.ingunbee_url
+    elif(whatToGet == "receipt_url"):
+        image = data_total.receipt_url
+    elif(whatToGet == "report_url"):
+        image = data_total.report_url
+    else:
+        return HttpResponse("BAD")
+    # 파일 응답을 생성하고 반환합니다.
+    response = FileResponse(image, content_type='image/jpeg')
+    return response
 
 ## 로그인 
 ## email
