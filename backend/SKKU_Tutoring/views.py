@@ -21,18 +21,32 @@ from django.views.generic import TemplateView
 from django.views.generic import DetailView
 from .form import TutorForm
 
-##image
+## image
 @api_view(["POST"])
 @permission_classes((permissions.AllowAny,))
 def image_load(request):
     form = TutorForm(request.POST, request.FILES)
     if form.is_valid():
         tutoring_id = form.cleaned_data['tutoring_id']
-        Tutoring.objects.filter(tutoring_id=tutoring_id).delete()  # 중복 tutoring_id인 행 삭제
-        form.save()
-        return HttpResponse("GOOD")
+        try:
+            tutoring = Tutoring.objects.get(tutoring_id=tutoring_id)
+            if 'credential_url' in form.cleaned_data and form.cleaned_data['credential_url'] and form.cleaned_data['credential_url'] != '':
+                tutoring.credential_url = form.cleaned_data['credential_url']
+            if 'tongjang_url' in form.cleaned_data and form.cleaned_data['tongjang_url'] and form.cleaned_data['tongjang_url'] != '':
+                tutoring.tongjang_url = form.cleaned_data['tongjang_url']
+            if 'ingunbee_url' in form.cleaned_data and form.cleaned_data['ingunbee_url'] and form.cleaned_data['ingunbee_url'] != '':
+                tutoring.ingunbee_url = form.cleaned_data['ingunbee_url']
+            if 'receipt_url' in form.cleaned_data and form.cleaned_data['receipt_url'] and form.cleaned_data['receipt_url'] != '':
+                tutoring.receipt_url = form.cleaned_data['receipt_url']
+            if 'report_url' in form.cleaned_data and form.cleaned_data['report_url'] and form.cleaned_data['report_url'] != '':
+                tutoring.report_url = form.cleaned_data['report_url']
+            tutoring.save()
+            return HttpResponse("GOOD")
+        except Tutoring.DoesNotExist:
+            return HttpResponse("Tutoring does not exist")
     else:
         return HttpResponse("BAD")
+    
 
 ## 로그인 
 ## email
