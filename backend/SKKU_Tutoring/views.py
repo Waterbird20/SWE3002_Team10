@@ -325,7 +325,7 @@ class AdminTutoringReturn(APIView):
 
         # TutoringAdmin 객체 찾기
         try:
-            tutoring_admin = TutoringAdmin.objects.get(key=tutoring_id)
+            tutoring_admin = TutoringAdmin.objects.get(tutoring_id=tutoring_id)
         except TutoringAdmin.DoesNotExist:
             return Response({"error": "TutoringAdmin 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
@@ -444,7 +444,7 @@ class AdminWeeklyApprove(APIView):
         
         # WeeklyReport 객체 찾기
         try:
-            weeklyreport = WeeklyReport.objects.get(key=tutoring_id+'_'+str(num))
+            weeklyreport = WeeklyReport.objects.get(report_id=tutoring_id+'_'+str(num))
         except WeeklyReport.DoesNotExist:
             return Response({"error": "WeeklyReport 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
@@ -452,7 +452,7 @@ class AdminWeeklyApprove(APIView):
         weeklyreport.save()
                
         try:
-            tutoring = Tutoring.objects.get(key=tutoring_id)
+            tutoring = Tutoring.objects.get(tutoring_id=tutoring_id)
             if num == 1:
                 tutoring.mid_report1 = 'T'
                 tutoring.time += tutoring_time
@@ -503,7 +503,7 @@ class AdminWeeklyReturn(APIView):
         
         # WeeklyReport 객체 찾기
         try:
-            weeklyreport = WeeklyReport.objects.get(key=tutoring_id+'_'+str(num))
+            weeklyreport = WeeklyReport.objects.get(report_id=tutoring_id+'_'+str(num))
         except WeeklyReport.DoesNotExist:
             return Response({"error": "WeeklyReport 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
@@ -511,7 +511,7 @@ class AdminWeeklyReturn(APIView):
         weeklyreport.save()
                
         try:
-            tutoring = Tutoring.objects.get(key=tutoring_id)
+            tutoring = Tutoring.objects.get(tutoring_id=tutoring_id)
             if num == 1:
                 tutoring.mid_report1 = return_reason
             elif num == 2:
@@ -556,7 +556,7 @@ class TutoringApply(APIView):
 
         # Tutoring 객체 찾기
         try:
-            tutoring = Tutoring.objects.get(key=tutoring_id)
+            tutoring = Tutoring.objects.get(tutoring_id=tutoring_id)
         except Tutoring.DoesNotExist:
             return Response({"error": "Tutoring 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
@@ -625,7 +625,7 @@ class TutoringOut(APIView):
 
         # Tutoring 객체 찾기
         try:
-            tutoring = Tutoring.objects.get(key=tutoring_id)
+            tutoring = Tutoring.objects.get(tutoring_id=tutoring_id)
         except Tutoring.DoesNotExist:
             return Response({"error": "Tutoring 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
@@ -787,7 +787,7 @@ class AdminFinalApprove(APIView):
         tutoring_id = student_id + '_' + course_number
         # WeeklyReport 객체 찾기
         try:
-            tutoring = Tutoring.objects.get(key=tutoring_id)
+            tutoring = Tutoring.objects.get(tutoring_id=tutoring_id)
             tutoring.completion = 'T'
         except WeeklyReport.DoesNotExist:
             return Response({"error": "Tutoring 객체를 찾을 수 없습니다."},
@@ -807,7 +807,7 @@ class AdminFinalReturn(APIView):
         
         # WeeklyReport 객체 찾기
         try:
-            tutoring = Tutoring.objects.get(key=tutoring_id)
+            tutoring = Tutoring.objects.get(tutoring_id=tutoring_id)
             tutoring.completion = return_reason
         except WeeklyReport.DoesNotExist:
             return Response({"error": "Tutoring 객체를 찾을 수 없습니다."},
