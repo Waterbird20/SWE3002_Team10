@@ -65,7 +65,6 @@ def get_file(request, pk, whatToGet):
         image = data_total.report_url
     else:
         return HttpResponse("BAD")
-    # 파일 응답을 생성하고 반환합니다.
     response = FileResponse(image, content_type='image/jpeg')
     return response
 
