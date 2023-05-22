@@ -538,7 +538,7 @@ class AdminWeeklyReturn(APIView):
             return JsonResponse({'error': 'Invalid tutoring_id'}, status=400)
 
 ## 튜터링 신청(튜티)
-## 학번, 학수번호, 튜터링개설자이름
+## 학번, 학수번호
 @permission_classes((permissions.AllowAny,))
 class TutoringApply(APIView):
 
@@ -607,7 +607,7 @@ class TutoringApply(APIView):
         return Response(serializer1.data, serializer2.data, status=status.HTTP_202_ACCEPTED)
 
 ## 튜터링 철회(튜티)
-## 학번, 학수번호, 튜터링개설자이름
+## 학번, 학수번호
 @permission_classes((permissions.AllowAny,))
 class TutoringOut(APIView):
 
