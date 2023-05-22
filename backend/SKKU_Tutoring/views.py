@@ -27,6 +27,8 @@ from .form import TutorForm
 def image_load(request):
     form = TutorForm(request.POST, request.FILES)
     if form.is_valid():
+        tutoring_id = form.cleaned_data['tutoring_id']
+        Tutoring.objects.filter(tutoring_id=tutoring_id).delete()  # 중복 tutoring_id인 행 삭제
         form.save()
         return HttpResponse("GOOD")
     else:
