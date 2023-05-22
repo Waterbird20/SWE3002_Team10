@@ -45,7 +45,8 @@ def image_load(request):
             tutoring.save()
             return HttpResponse("GOOD")
         except Tutoring.DoesNotExist:
-            return HttpResponse("Tutoring does not exist")
+            form.save()
+            return HttpResponse("GOOD")
     else:
         return HttpResponse("BAD")
     
