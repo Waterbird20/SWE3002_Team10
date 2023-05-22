@@ -1,5 +1,13 @@
 from django.db import models
 
+import os
+
+def get_file_path(instance, filename, typeOfFile):
+    ext = filename.split('.')[-1]
+    modified_filename = instance.tutoring_id + '_' + instance.course_name + '_' + typeOfFile + '.' + ext
+    return os.path.join("media", modified_filename)
+
+
 class TutoringAdmin(models.Model):
     tutoring_id = models.CharField(max_length = 45,primary_key=True)
     tutor_grade = models.CharField(max_length = 5)
@@ -49,11 +57,11 @@ class Tutoring(models.Model):
     mid_report9 = models.CharField(max_length=500, blank=True)
     mid_report10 = models.CharField(max_length=500, blank=True)
     time = models.FloatField()
-    credential_url = models.ImageField(null=True, upload_to="media", blank=True) # 수정
-    tongjang_url = models.ImageField(null=True, upload_to="media", blank=True) # 수정
-    ingunbee_url = models.ImageField(null=True, upload_to="media", blank=True) # 수정
-    receipt_url = models.ImageField(null=True, upload_to="media", blank=True) # 수정
-    report_url = models.ImageField(null=True, upload_to="media", blank=True) # 수정  form에서 빈 값을 허용
+    credential_url = models.ImageField(null=True, upload_to=lambda instance, filename: get_file_path(instance, filename, "credential"), blank=True)
+    tongjang_url = models.ImageField(null=True, upload_to=lambda instance, filename: get_file_path(instance, filename, "tongjang"), blank=True)
+    ingunbee_url = models.ImageField(null=True, upload_to=lambda instance, filename: get_file_path(instance, filename, "ingunbee"), blank=True)
+    receipt_url = models.ImageField(null=True, upload_to=lambda instance, filename: get_file_path(instance, filename, "receipt"), blank=True)
+    report_url = models.ImageField(null=True, upload_to=lambda instance, filename: get_file_path(instance, filename, "report"), blank=True)
     completion = models.CharField(max_length=100, blank=True)
     class Meta:
         managed = False
