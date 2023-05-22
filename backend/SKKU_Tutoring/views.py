@@ -235,7 +235,7 @@ class AdminTutoringApprove(APIView):
             try:
                 tutee_list.append(tmp[i])
             except IndexError:
-                tutee_list.append(tmp[i])
+                tutee_list.append('')
 
         try:
             student = StudentInfo.objects.get(student_id=student_id)
