@@ -1,4 +1,5 @@
 from django.http import HttpResponse, JsonResponse
+from django.shortcuts import get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 from django.core.exceptions import ObjectDoesNotExist
 
@@ -362,9 +363,34 @@ class WeeklyReportUpload(APIView):
     
 ## 승인 대기중인 중간보고서 list
 @permission_classes((permissions.AllowAny,))
-class AdminWaitingWeeklyList(generics.ListAPIView):
-    queryset = WeeklyReport.objects.filter(approval=0)
-    serializer_class = WeeklyReportSerializer
+def AdminWaitingWeeklyList(request):
+    weekly_reports = WeeklyReport.objects.all()
+
+    data = []
+    for weekly_report in weekly_reports:
+
+        tmp = weekly_report.report_id.split('_')
+        tutoring_id = tmp[0] +'_'+ tmp[1]+'_' + tmp[2]
+
+        tutoring = get_object_or_404(Tutoring, tutoring_id=tutoring_id)
+
+        report_data = {
+            'report_id': weekly_report.report_id,
+            'course_name': tutoring.course_name,
+            'course_number': weekly_report.course_number,
+            'num': weekly_report.num,
+            'date_time': weekly_report.date_time,
+            'time': weekly_report.time,
+            'attendance': weekly_report.attendance,
+            'filename': weekly_report.filename,
+            'content': weekly_report.content,
+            'image_url': weekly_report.image_url,
+            'approval': weekly_report.approval,
+        }
+
+        data.append(report_data)
+
+    return JsonResponse(data, safe=False)
 
 ## 자신의 중간보고서
 ## 학번, 학수번호
@@ -393,6 +419,7 @@ class AdminWeeklyApprove(APIView):
         
         tutoring_id = student_id + '_' + course_number
 
+        
         
         # WeeklyReport 객체 찾기
         try:

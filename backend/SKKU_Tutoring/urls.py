@@ -62,7 +62,7 @@ urlpatterns = [
     
     path('weekly-upload',views.WeeklyReportUpload.as_view()),
     path('my-weekly',views.MyWeekly.as_view()),
-    path('admin-waiting-weekly-list',views.AdminWaitingWeeklyList.as_view()),
+    path('admin-waiting-weekly-list',views.AdminWaitingWeeklyList),
     path('admin-weekly-approve',views.AdminWeeklyApprove.as_view()),
     path('admin-weekly-return',views.AdminWeeklyReturn.as_view()),
     
