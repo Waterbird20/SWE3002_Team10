@@ -444,7 +444,7 @@ class AdminWeeklyApprove(APIView):
         
         # WeeklyReport 객체 찾기
         try:
-            weeklyreport = WeeklyReport.objects.get(key=tutoring_id+'_'+num)
+            weeklyreport = WeeklyReport.objects.get(key=tutoring_id+'_'+str(num))
         except WeeklyReport.DoesNotExist:
             return Response({"error": "WeeklyReport 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
@@ -503,7 +503,7 @@ class AdminWeeklyReturn(APIView):
         
         # WeeklyReport 객체 찾기
         try:
-            weeklyreport = WeeklyReport.objects.get(key=tutoring_id+'_'+num)
+            weeklyreport = WeeklyReport.objects.get(key=tutoring_id+'_'+str(num))
         except WeeklyReport.DoesNotExist:
             return Response({"error": "WeeklyReport 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
