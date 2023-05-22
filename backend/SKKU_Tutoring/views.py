@@ -1,5 +1,6 @@
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.core.exceptions import ObjectDoesNotExist
 
 from .models import TutoringAdmin,StudentInfo,Tutoring,WeeklyReport
 from rest_framework import generics
@@ -30,7 +31,25 @@ def image_load(request):
         return HttpResponse("GOOD")
     else:
         return HttpResponse("BAD")
-    
+
+## 로그인 
+## email
+@permission_classes((permissions.AllowAny,))
+class Login(APIView):
+    """
+    Retrieve the admin status of a student given their email.
+    """
+    def get(self, request):
+        email = request.query_params.get('email', None)
+        if email is not None:
+            try:
+                student = StudentInfo.objects.get(email=email)
+                return Response({"admin": student.admin}, status=status.HTTP_200_OK)
+            except ObjectDoesNotExist:
+                return Response({"error": "Student with provided email not found"}, status=status.HTTP_404_NOT_FOUND)
+        else:
+            return Response({"error": "Email parameter is required"}, status=status.HTTP_400_BAD_REQUEST)
+        
 ## 특정 계정 조회
 ## 학번을 key값으로 해당 계정 정보 조회
 @api_view(['GET'])
@@ -197,7 +216,7 @@ class AdminTutoringApprove(APIView):
 
         tutoring_id = student_id + '_' + course_number
 
-            
+        
         # TutoringAdmin 객체 찾기
         try:
             tutoring_admin = TutoringAdmin.objects.get(tutoring_id=tutoring_id)
@@ -278,7 +297,7 @@ class AdminTutoringReturn(APIView):
         tutoring_admin.save()
         
 ## 중간보고서 업로드
-## 학번, 학수번호, 몇회차, 시간, 참석현황, 이미지URL, 학습내용, 과목이름, 날짜, 진행시간
+## 학번, 학수번호, 몇회차, 참석현황, 이미지URL, 학습내용, 과목이름, 날짜, 진행시간
 @permission_classes((permissions.AllowAny,))
 class WeeklyReportUpload(APIView):
 
@@ -286,11 +305,10 @@ class WeeklyReportUpload(APIView):
         student_id = request.data.get("student_id")
         course_number = request.data.get("course_number")
         num = request.data.get('num')
-        time = request.data.get("time")
+        date_time = request.data.get("date_time")
         attendance = request.data.get("attendance")
         imageURL = request.data.get('imageURL')
-        date = request.data.get('date')
-        during = request.data.get('during')
+        time = request.data.get('time')
         course_name = request.data.get('course_name')
         content = request.data.get("content")
         
@@ -308,11 +326,12 @@ class WeeklyReportUpload(APIView):
             'report_id': tutoring_id+'_'+num,
             'course_number' : course_number,
             'num': num,
-            'time': time,
+            'date_time': date_time,
+            'time' : time,
             'attendance' : attendance,
             'content': content,
             'image_url' : imageURL,
-            'file_name' : course_name +' '+str(num)+'회차 ' + date + ' ' + during,
+            'filename' : course_name +' '+str(num)+'회차 ' + date_time,
             'approval' : '0'
 
         }
@@ -352,7 +371,7 @@ class AdminWeeklyApprove(APIView):
         num = request.data.get('num')
         tutoring_time = request.data.get('tutoring_time')
         try:
-            tutoring_time = int(tutoring_time)
+            tutoring_time = float(tutoring_time)
         except ValueError:
             return JsonResponse({'error': 'Invalid tutoring_time value'}, status=400)
         

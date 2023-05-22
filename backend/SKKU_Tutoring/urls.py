@@ -45,6 +45,7 @@ urlpatterns = [
 
     path('admin/', admin.site.urls),
     
+    path('login', views.Login.as_view()),
     path('all-student',views.all_student),
     path('account-register', views.account_register),
     path('account-show/<str:pk>', views.account_show),

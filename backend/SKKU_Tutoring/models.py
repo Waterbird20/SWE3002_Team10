@@ -48,7 +48,7 @@ class Tutoring(models.Model):
     mid_report8 = models.CharField(max_length=500, blank=True)
     mid_report9 = models.CharField(max_length=500, blank=True)
     mid_report10 = models.CharField(max_length=500, blank=True)
-    time = models.IntegerField()
+    time = models.FloatField()
     credential_url = models.ImageField(null=True, upload_to="media", blank=True) # 수정
     tongjang_url = models.ImageField(null=True, upload_to="media", blank=True) # 수정
     ingunbee_url = models.ImageField(null=True, upload_to="media", blank=True) # 수정
@@ -63,7 +63,8 @@ class WeeklyReport(models.Model):
     report_id = models.CharField(max_length = 100,primary_key=True)
     course_number = models.CharField(max_length = 45)
     num = models.IntegerField()
-    time = models.CharField(max_length = 45)
+    date_time = models.CharField(max_length = 45)
+    time = models.FloatField()
     attendance = models.CharField(max_length = 45)
     filename = models.CharField(max_length = 45)
     content = models.CharField(max_length=500)
