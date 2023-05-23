@@ -92,8 +92,8 @@ class Login(APIView):
 ## 학번을 key값으로 해당 계정 정보 조회
 @api_view(['GET'])
 @permission_classes((permissions.AllowAny,))
-def account_show(request, pk):
-    obj = StudentInfo.objects.get(pk=pk)
+def account_show(request, email):
+    obj = StudentInfo.objects.get(email=email)
     serializer = StudentInfoSerializer(obj)
     return JsonResponse(serializer.data, safe=False)
 

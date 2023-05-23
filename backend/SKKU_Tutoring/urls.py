@@ -48,7 +48,7 @@ urlpatterns = [
     path('login', views.Login.as_view()),
     path('all-student',views.all_student),
     path('account-register', views.account_register),
-    path('account-show/<str:pk>', views.account_show),
+    path('account-show/<str:email>', views.account_show),
     
     path('get-made-tutoring/<str:student_id>/', views.get_made_tutoring),
     path('get-participate-tutoring/<str:student_id>/', views.get_participate_tutoring),
