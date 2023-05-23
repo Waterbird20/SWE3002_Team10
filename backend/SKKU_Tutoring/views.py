@@ -558,51 +558,75 @@ class TutoringApply(APIView):
             return Response({"error": "Tutoring 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
 
+        # 자신의 튜터링에 등록할 수 없음.
+        if student_info.Tutor_Course_id == tutoring_id:
+            return Response({"error": "자신이 개설한 Tutoring에 등록할 수 없습니다."}, 
+                            status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+        
+        # 수강중인 튜터링이 있는지 확인
+        if student_info.Tutee_Course_id != '':
+            return Response({"error": "다른 Tutoring에 이미 등록되어 있습니다."}, 
+                status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+
         
         # tutoring 인원 확인    
         where = 0
+        isin = 0
         if tutoring.tutee1 == '': where = 1
         elif tutoring.tutee2 == '': where = 2
         elif tutoring.tutee3 == '': where = 3
         elif tutoring.tutee4 == '': where = 4
         elif tutoring.tutee5 == '': where = 5
 
+        if tutoring.tutee1 == student_id: isin = 1
+        if tutoring.tutee2 == student_id: isin = 1
+        if tutoring.tutee3 == student_id: isin = 1
+        if tutoring.tutee4 == student_id: isin = 1
+        if tutoring.tutee5 == student_id: isin = 1
+
+        
         # tutoring apply
+        if isin == 1:
+            # 이미 등록됨
+            return Response({"error": "해당 Tutoring에 이미 등록되어 있습니다."}, 
+                            status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+        
         if where == 1:
             tutoring.tutee1 = student_id
             tutoring.save()
+            # 학생 정보 업데이트
+            student_info.Tutee_Course_id = tutoring_id
+            student_info.save()
         elif where == 2:
             tutoring.tutee2 = student_id
             tutoring.save()
+            # 학생 정보 업데이트
+            student_info.Tutee_Course_id = tutoring_id
+            student_info.save()
         elif where == 3:
             tutoring.tutee3 = student_id
             tutoring.save()
+            # 학생 정보 업데이트
+            student_info.Tutee_Course_id = tutoring_id
+            student_info.save()
         elif where == 4:
             tutoring.tutee4 = student_id
             tutoring.save()
+            # 학생 정보 업데이트
+            student_info.Tutee_Course_id = tutoring_id
+            student_info.save()
         elif where == 5:
             tutoring.tutee5 = student_id
             tutoring.save()
+            # 학생 정보 업데이트
+            student_info.Tutee_Course_id = tutoring_id
+            student_info.save()
         else:
             # 인원 초과
             return Response({"error": "Tutoring 인원이 가득찼습니다."}, 
-                            status=status.HTTP_304_NOT_MODIFIED)
-            
-        data1 = Tutoring.objects.get(pk=tutoring_id)
-        serializer1 = TutoringSerializer(data=data1)
-        if not serializer1.is_valid():
-            return Response(serializer1.errors, status=status.HTTP_400_BAD_REQUEST)
-        
-        # 학생 정보 업데이트
-        student_info.Tutee_Course_id = tutoring.tutoring_id
-        student_info.save()
-        
-        data2 = StudentInfo.objects.get(student_id=student_id)
-        serializer2 = StudentInfoSerializer(data=data2)
-        if not serializer2.is_valid():
-            return Response(serializer2.errors, status=status.HTTP_400_BAD_REQUEST)
+                            status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
 
-        return Response(serializer1.data, serializer2.data, status=status.HTTP_202_ACCEPTED)
+        return Response({"success" : "True"}, status=status.HTTP_202_ACCEPTED)
 
 ## 튜터링 철회(튜티)
 ## 학번, 학수번호
@@ -610,7 +634,7 @@ class TutoringApply(APIView):
 class TutoringOut(APIView):
 
     def post(self, request):
-        student_id = request.data.get('student_id')
+        student_id = request.data.get("student_id")
         tutoring_id = request.data.get("tutoring_id")
         # StudentInfo 객체 찾기
         try:
@@ -626,30 +650,51 @@ class TutoringOut(APIView):
             return Response({"error": "Tutoring 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
         
-        # tutoring 인원 확인    
-        num = 0
-        if tutoring.tutee1 == student_id: tutoring_id.tutee1 = ''
-        if tutoring.tutee2 == student_id: tutoring_id.tutee2 = ''
-        if tutoring.tutee3 == student_id: tutoring_id.tutee3 = ''
-        if tutoring.tutee4 == student_id: tutoring_id.tutee4 = ''
-        if tutoring.tutee5 == student_id: tutoring_id.tutee5 = ''
-        tutoring.save()
-            
-        data1 = Tutoring.objects.get(pk=tutoring_id)
-        serializer1 = TutoringSerializer(data=data1)
-        if not serializer1.is_valid():
-            return Response(serializer1.errors, status=status.HTTP_400_BAD_REQUEST)
+        # tutoring tutee 위치 확인 
+        where = 0
+        isin = 0
+        if tutoring.tutee1 == student_id: where = 1
+        elif tutoring.tutee2 == student_id: where = 2
+        elif tutoring.tutee3 == student_id: where = 3
+        elif tutoring.tutee4 == student_id: where = 4
+        elif tutoring.tutee5 == student_id: where = 5
         
-        # 학생 정보 업데이트
-        student_info.Tutee_Course_id = ''
-        student_info.save()
-        
-        data2 = StudentInfo.objects.get(student_id=student_id)
-        serializer2 = StudentInfoSerializer(data=data2)
-        if not serializer2.is_valid():
-            return Response(serializer2.errors, status=status.HTTP_400_BAD_REQUEST)
+        if where == 1:
+            tutoring.tutee1 = ''
+            tutoring.save()
+            # 학생 정보 업데이트
+            student_info.Tutee_Course_id = ''
+            student_info.save()
+        elif where == 2:
+            tutoring.tutee2 = ''
+            tutoring.save()
+            # 학생 정보 업데이트
+            student_info.Tutee_Course_id = ''
+            student_info.save()
+        elif where == 3:
+            tutoring.tutee3 = ''
+            tutoring.save()
+            # 학생 정보 업데이트
+            student_info.Tutee_Course_id = ''
+            student_info.save()
+        elif where == 4:
+            tutoring.tutee4 = ''
+            tutoring.save()
+            # 학생 정보 업데이트
+            student_info.Tutee_Course_id = ''
+            student_info.save()
+        elif where == 5:
+            tutoring.tutee5 = ''
+            tutoring.save()
+            # 학생 정보 업데이트
+            student_info.Tutee_Course_id = ''
+            student_info.save()
+        else:
+            # 인원 초과
+            return Response({"error": "해당 튜터링에 지원하지 않았습니다."}, 
+                            status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
 
-        return Response(serializer1.data, serializer2.data, status=status.HTTP_202_ACCEPTED)
+        return Response({"success" : "True"}, status=status.HTTP_202_ACCEPTED)
 
 @permission_classes((permissions.AllowAny,))
 def AdminWaitingFinalList(request):
