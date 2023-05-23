@@ -1,12 +1,11 @@
-import { TutorConfirmListItem } from '@/component/Admin/TutorConfirmListItem';
 import { TutorReportListItem } from '@/component/Admin/TutorReportListItem';
-import { TutorClassListItem } from '@/component/Class/ClassListItem/TutorClassListItem';
 import { useReportList } from '@/hooks';
-import { totalClassList } from '@/mock/totalClassList';
-import { Grid, HStack, Input, Text, VStack } from '@chakra-ui/react';
+import { Grid, HStack, Input, Spinner, Text, VStack } from '@chakra-ui/react';
 
 const TutorReport = () => {
   const { data: report } = useReportList();
+
+  if (!report) return <Spinner />;
 
   return (
     <VStack w="full" maxW="700px" spacing="50px">

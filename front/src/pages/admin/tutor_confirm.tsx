@@ -1,5 +1,4 @@
 import { TutorConfirmListItem } from '@/component/Admin/TutorConfirmListItem';
-import { TutorClassListItem } from '@/component/Class/ClassListItem/TutorClassListItem';
 import { useApprovedTutoringList, useWaitingTutoringList } from '@/hooks';
 import { totalClassList } from '@/mock/totalClassList';
 import { Grid, HStack, Input, Spinner, Text, VStack } from '@chakra-ui/react';

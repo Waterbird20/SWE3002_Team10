@@ -1,6 +1,5 @@
 import { HomeHero } from '@/component/Home/HomeHero';
 import { HomeTuteeClassContainer } from '@/component/Home/HomeTuteeClassContainer';
-import { HomeTutorClassContainer } from '@/component/Home/HomeTutorClassContainer';
 import { Flex, HStack, Text, VStack } from '@chakra-ui/react';
 
 export default function Home() {
