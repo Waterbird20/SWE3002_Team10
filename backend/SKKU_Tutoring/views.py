@@ -581,6 +581,13 @@ class TutoringApply(APIView):
             return Response({"error": "Tutoring 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
 
+        # TutoringAdmin 객체 찾기
+        try:
+            tutoring_admin = TutoringAdmin.objects.get(tutoring_id=tutoring_id)
+        except TutoringAdmin.DoesNotExist:
+            return Response({"error": "TutoringAdmin 객체를 찾을 수 없습니다."},
+                            status=status.HTTP_404_NOT_FOUND)
+
         # 자신의 튜터링에 등록할 수 없음.
         if student_info.Tutor_Course_id == tutoring_id:
             return Response({"error": "자신이 개설한 Tutoring에 등록할 수 없습니다."}, 
@@ -648,6 +655,16 @@ class TutoringApply(APIView):
             # 인원 초과
             return Response({"error": "Tutoring 인원이 가득찼습니다."}, 
                             status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+        
+        tutee_list = []
+        if tutoring.tutee1 != '': tutee_list.append(tutoring.tutee1)
+        if tutoring.tutee2 != '': tutee_list.append(tutoring.tutee2)
+        if tutoring.tutee3 != '': tutee_list.append(tutoring.tutee3)
+        if tutoring.tutee4 != '': tutee_list.append(tutoring.tutee4)
+        if tutoring.tutee5 != '': tutee_list.append(tutoring.tutee5)
+        
+        tutoring_admin.tutee = ','.join(tutee_list)
+        tutoring_admin.save()
 
         return Response({"success" : "True"}, status=status.HTTP_202_ACCEPTED)
 
@@ -672,7 +689,14 @@ class TutoringOut(APIView):
         except Tutoring.DoesNotExist:
             return Response({"error": "Tutoring 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
-        
+
+        # TutoringAdmin 객체 찾기
+        try:
+            tutoring_admin = TutoringAdmin.objects.get(tutoring_id=tutoring_id)
+        except TutoringAdmin.DoesNotExist:
+            return Response({"error": "TutoringAdmin 객체를 찾을 수 없습니다."},
+                            status=status.HTTP_404_NOT_FOUND)
+
         # tutoring tutee 위치 확인 
         where = 0
         isin = 0
@@ -716,6 +740,15 @@ class TutoringOut(APIView):
             # 인원 초과
             return Response({"error": "해당 튜터링에 지원하지 않았습니다."}, 
                             status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+        tutee_list = []
+        if tutoring.tutee1 != '': tutee_list.append(tutoring.tutee1)
+        if tutoring.tutee2 != '': tutee_list.append(tutoring.tutee2)
+        if tutoring.tutee3 != '': tutee_list.append(tutoring.tutee3)
+        if tutoring.tutee4 != '': tutee_list.append(tutoring.tutee4)
+        if tutoring.tutee5 != '': tutee_list.append(tutoring.tutee5)
+        
+        tutoring_admin.tutee = ','.join(tutee_list)
+        tutoring_admin.save()
 
         return Response({"success" : "True"}, status=status.HTTP_202_ACCEPTED)
 
