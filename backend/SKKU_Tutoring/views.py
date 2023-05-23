@@ -177,7 +177,7 @@ class TutoringPropose(APIView):
 def get_made_tutoring(request, student_id):
     try:
         student = StudentInfo.objects.get(student_id=student_id)
-        tutor_courses = student.Tutor_Course_id.split(',')
+        tutor_courses = student.Tutor_Course_id.replace(" ","").split(',')
         course_info = []
         for course_id in tutor_courses:
             try:
@@ -199,7 +199,7 @@ def get_made_tutoring(request, student_id):
 def get_participate_tutoring(request, student_id):
     try:
         student = StudentInfo.objects.get(student_id=student_id)
-        tutor_courses = student.Tutee_Course_id.split(',')
+        tutor_courses = student.Tutee_Course_id.replace(" ","").split(',')
         course_info = []
         for course_id in tutor_courses:
             try:
