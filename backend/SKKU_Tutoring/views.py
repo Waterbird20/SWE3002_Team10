@@ -489,6 +489,7 @@ class AdminWeeklyApprove(APIView):
         except Tutoring.DoesNotExist:
             return JsonResponse({'error': 'Invalid tutoring_id'}, status=400)
         
+        return JsonResponse({'success': 'Weekly report has been successfully approved'}, status=200)
 ## 중간보고서 반려
 ## 학번, 학수번호, 몇회차, 반려사유
 @permission_classes((permissions.AllowAny,))
@@ -537,6 +538,7 @@ class AdminWeeklyReturn(APIView):
 
         except Tutoring.DoesNotExist:
             return JsonResponse({'error': 'Invalid tutoring_id'}, status=400)
+        return JsonResponse({'success': 'Weekly report has been successfully approved'}, status=200)
 
 ## 튜터링 신청(튜티)
 ## 학번, 학수번호
