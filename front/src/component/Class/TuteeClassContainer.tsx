@@ -1,19 +1,22 @@
-import { HStack, Input, Text, VStack } from '@chakra-ui/react';
-import { TuteeClassListItem } from './ClassListItem/TuteeClassListItem';
+import { HStack, Input, Spinner, Text, VStack } from '@chakra-ui/react';
+import { TuteeClassListItem } from './TuteeClassListItem';
 import { useEffect, useState } from 'react';
-import { totalClassList } from '@/mock/totalClassList';
+import { useApprovedTutoringList } from '@/hooks';
 
 export const TuteeClassContainer = () => {
+  const { data: approvedList } = useApprovedTutoringList();
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredClassList, setFilteredClassList] = useState(totalClassList);
+  const [filteredClassList, setFilteredClassList] = useState([]);
 
   useEffect(() => {
-    if (searchTerm === '') setFilteredClassList(totalClassList);
+    if (searchTerm === '') setFilteredClassList(approvedList);
     else
       setFilteredClassList(
-        totalClassList.filter((className) => className.toLowerCase().includes(searchTerm.toLowerCase()))
+        approvedList.filter((el: any) => el.course_name.toLowerCase().includes(searchTerm.toLowerCase()))
       );
   }, [searchTerm]);
+
+  if (!approvedList) return <Spinner />;
 
   return (
     <VStack w="full" maxW="700px" spacing="50px">
@@ -24,8 +27,8 @@ export const TuteeClassContainer = () => {
         <Input w="300px" bg="white" type="search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
       </HStack>
       <VStack w="full" spacing="12px">
-        {filteredClassList.map((className) => (
-          <TuteeClassListItem className={className} />
+        {(searchTerm ? filteredClassList : approvedList).map((el: any) => (
+          <TuteeClassListItem el={el} />
         ))}
       </VStack>
     </VStack>

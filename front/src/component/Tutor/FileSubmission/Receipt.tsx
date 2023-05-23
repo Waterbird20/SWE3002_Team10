@@ -1,38 +1,17 @@
-import { handleFileSubmitFactory } from '@/component/common/utils';
 import { Button, HStack, Input, Text, VStack, useToast } from '@chakra-ui/react';
 import { ChangeEvent, useState } from 'react';
 
-export const Receipt = () => {
-  const toast = useToast({ position: 'bottom-right' });
-  const [pending, setPending] = useState(false);
-  const [uploadedFile, setUploadedFile] = useState<File | null>(null);
-
+export const Receipt = ({ receipt_url, files, setFiles }: any) => {
   const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) setUploadedFile(event.target.files[0]);
+    if (event.target.files && event.target.files[0]) setFiles({ ...files, receipt_url: event.target.files[0] });
   };
-  const handleFileSubmit = handleFileSubmitFactory('receipt', uploadedFile, setPending, toast);
 
   return (
-    <VStack w="full" align="flex-start">
+    <HStack w="full" justify="space-between">
       <Text fontWeight={600}>영수증 첨부지</Text>
-      <HStack w="full" justify="flex-end">
+      <HStack justify="flex-end">
         <Input onChange={handleFileChange} w="full" type="file" size="sm" border="none" p="0px" />
-        <Button
-          py="5px"
-          h="fit-content"
-          px="15px"
-          bg="#48702B"
-          borderRadius="5px"
-          color="white"
-          fontSize="sm"
-          fontWeight={600}
-          _hover={{ cursor: 'pointer' }}
-          isLoading={pending}
-          onClick={handleFileSubmit}
-        >
-          제출
-        </Button>
       </HStack>
-    </VStack>
+    </HStack>
   );
 };

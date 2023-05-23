@@ -1,9 +1,14 @@
-import { HStack, Text, VStack } from '@chakra-ui/react';
-import { TuteeClassListItem } from '../Class/ClassListItem/TuteeClassListItem';
+import { HStack, Spinner, Text, VStack } from '@chakra-ui/react';
+import { TuteeClassListItem } from '../Class/TuteeClassListItem';
 import Link from 'next/link';
 import { totalClassList } from '@/mock/totalClassList';
+import { useApprovedTutoringList } from '@/hooks';
 
 export const HomeTuteeClassContainer = () => {
+  const { data: approvedList } = useApprovedTutoringList();
+
+  if (!approvedList) return <Spinner />;
+
   return (
     <VStack w="full" spacing="30px">
       <HStack w="full" justify="space-between">
@@ -15,8 +20,8 @@ export const HomeTuteeClassContainer = () => {
         </Text>
       </HStack>
       <VStack w="full" spacing="16px">
-        {totalClassList.slice(0, 5).map((className) => (
-          <TuteeClassListItem className={className} />
+        {approvedList.slice(0, 5).map((el: any) => (
+          <TuteeClassListItem el={el} />
         ))}
       </VStack>
     </VStack>

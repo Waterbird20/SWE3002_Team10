@@ -1,4 +1,3 @@
-import { handleFileRemoveFactory } from '@/component/common/utils';
 import { Button, HStack, Text, useToast } from '@chakra-ui/react';
 import { useState } from 'react';
 
@@ -6,7 +5,7 @@ export const WeeklyReportListItem = ({ file }: { file: string }) => {
   const toast = useToast({ position: 'bottom-right' });
   const [pending, setPending] = useState(false);
 
-  const handleFileRemove = handleFileRemoveFactory('weekly_report', file, setPending, toast);
+  const handleFileRemove = async () => {};
 
   return (
     <HStack w="full" justify="space-between">

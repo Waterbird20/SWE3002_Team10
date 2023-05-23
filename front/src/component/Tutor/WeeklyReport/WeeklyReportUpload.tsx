@@ -1,4 +1,4 @@
-import { handleFileSubmitFactory, uploadFile } from '@/component/common/utils';
+import { PrimaryButton } from '@/component/common/Button';
 import { Button, HStack, Input, useToast } from '@chakra-ui/react';
 import { ChangeEvent, useState } from 'react';
 
@@ -11,24 +11,14 @@ export const WeeklyReportUpload = () => {
     if (event.target.files && event.target.files[0]) setUploadedFile(event.target.files[0]);
   };
 
+  const handleSubmit = async () => {};
+
   return (
     <HStack>
       <Input onChange={handleFileChange} type="file" size="sm" w="200px" border="none" p="0px" />
-      <Button
-        py="5px"
-        h="fit-content"
-        px="15px"
-        bg="#48702B"
-        borderRadius="5px"
-        color="white"
-        fontSize="sm"
-        fontWeight={600}
-        _hover={{ cursor: 'pointer' }}
-        isLoading={pending}
-        onClick={handleFileSubmitFactory('weekly_report', uploadedFile, setPending, toast)}
-      >
+      <PrimaryButton isLoading={pending} onClick={handleSubmit}>
         제출
-      </Button>
+      </PrimaryButton>
     </HStack>
   );
 };
