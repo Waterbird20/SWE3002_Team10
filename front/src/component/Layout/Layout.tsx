@@ -12,33 +12,47 @@ import {
   MenuList,
   MenuItem,
 } from '@chakra-ui/react';
-import { ReactNode } from 'react';
+import { ReactNode, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Navbar } from '../Navbar/Navbar';
 import { MobileNavbarModal } from '../Navbar/MobileNavbarModal';
 import menu_burger from './menu-icon-dark.svg';
 import { Logo } from '../common/Logo';
+import { signIn, useSession, signOut } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 export const Layout = ({ children }: { children: ReactNode }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [isSm] = useMediaQuery('(max-width: 768px)');
+  const { data, status } = useSession();
+  const router = useRouter();
+  console.log(data);
 
-  // return (
-  //   <Flex
-  //     minW="100vw"
-  //     minH="100vh"
-  //     w="full"
-  //     h="full"
-  //     bg="gray.50"
-  //     justify="center"
-  //     align="center"
-  //     fontFamily="Spoqa Han Sans Neo"
-  //     py="40px"
-  //   >
-  //     <Spinner />
-  //   </Flex>
-  // );
+  useEffect(() => {
+    //@ts-ignore
+    if (status === 'authenticated' && !data?.registered && router.pathname !== '/register') router.push('/register');
+    if (status === 'unauthenticated' && router.pathname === '/register') router.push('/');
+    //@ts-ignore
+    if (status === 'authenticated' && data?.registered && router.pathname === '/register') router.push('/');
+  }, [router, status]);
+
+  if (status === 'loading')
+    return (
+      <Flex
+        minW="100vw"
+        minH="100vh"
+        w="full"
+        h="full"
+        bg="gray.50"
+        justify="center"
+        align="center"
+        fontFamily="Spoqa Han Sans Neo"
+        py="40px"
+      >
+        <Spinner />
+      </Flex>
+    );
 
   return (
     <Flex
@@ -67,32 +81,44 @@ export const Layout = ({ children }: { children: ReactNode }) => {
             <>
               <Navbar />
               <HStack spacing="20px" fontSize="sm">
-                {/* <Link href="/register">
-                  <Text>회원가입</Text>
-                </Link> */}
-                <Text>로그인</Text>
-                <Menu>
-                  <MenuButton as={Text} _hover={{ cursor: 'pointer' }}>
-                    관리자
-                  </MenuButton>
-                  <MenuList fontSize="xs" minW="120px">
-                    <Link href="/admin/tutor_confirm">
-                      <MenuItem fontSize="sm" fontWeight={500}>
-                        튜터링 승인
-                      </MenuItem>
-                    </Link>
-                    <Link href="/admin/tutor_report">
-                      <MenuItem fontSize="sm" fontWeight={500}>
-                        튜터링 중간보고서
-                      </MenuItem>
-                    </Link>
-                    <Link href="/admin/tutor_completion">
-                      <MenuItem fontSize="sm" fontWeight={500}>
-                        튜터링 최종 승인
-                      </MenuItem>
-                    </Link>
-                  </MenuList>
-                </Menu>
+                {status === 'unauthenticated' ? (
+                  <Text _hover={{ cursor: 'pointer' }} onClick={() => signIn()}>
+                    로그인
+                  </Text>
+                ) : (
+                  <>
+                    <Text _hover={{ cursor: 'pointer' }} onClick={() => signOut()}>
+                      로그아웃
+                    </Text>
+                    {
+                      //@ts-ignore
+                      data?.role === 'admin' && (
+                        <Menu>
+                          <MenuButton as={Text} _hover={{ cursor: 'pointer' }}>
+                            관리자
+                          </MenuButton>
+                          <MenuList fontSize="xs" minW="120px">
+                            <Link href="/admin/tutor_confirm">
+                              <MenuItem fontSize="sm" fontWeight={500}>
+                                튜터링 승인
+                              </MenuItem>
+                            </Link>
+                            <Link href="/admin/tutor_report">
+                              <MenuItem fontSize="sm" fontWeight={500}>
+                                튜터링 중간보고서
+                              </MenuItem>
+                            </Link>
+                            <Link href="/admin/tutor_completion">
+                              <MenuItem fontSize="sm" fontWeight={500}>
+                                튜터링 최종 승인
+                              </MenuItem>
+                            </Link>
+                          </MenuList>
+                        </Menu>
+                      )
+                    }
+                  </>
+                )}
               </HStack>
             </>
           )}

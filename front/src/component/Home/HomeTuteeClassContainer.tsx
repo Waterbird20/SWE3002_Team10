@@ -20,8 +20,8 @@ export const HomeTuteeClassContainer = () => {
         </Text>
       </HStack>
       <VStack w="full" spacing="16px">
-        {approvedList.slice(0, 5).map((el: any) => (
-          <TuteeClassListItem el={el} />
+        {approvedList.slice(0, 5).map((el: any, i: any) => (
+          <TuteeClassListItem el={el} key={i} />
         ))}
       </VStack>
     </VStack>

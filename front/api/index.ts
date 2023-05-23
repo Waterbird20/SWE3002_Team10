@@ -10,8 +10,8 @@ export async function account_register(data: Object) {
   });
 }
 
-export async function account_show(id: number) {
-  return fetch(`${ADMIN_API_BASE_URL}/account-show/${id}`, {
+export async function account_show(email: string) {
+  return fetch(`${ADMIN_API_BASE_URL}/account-show/${email}`, {
     method: 'GET',
   });
 }
