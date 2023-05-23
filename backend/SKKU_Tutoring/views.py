@@ -300,6 +300,7 @@ class AdminTutoringApprove(APIView):
             'tutee3': tutee_list[2],
             'tutee4': tutee_list[3],
             'tutee5': tutee_list[4],
+            'time' : 0,
             'completion': '',
             'mid_report': '',
             'final_report': '',
