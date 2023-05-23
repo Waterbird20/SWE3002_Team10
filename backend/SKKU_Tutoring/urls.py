@@ -59,6 +59,7 @@ urlpatterns = [
     path('admin-tutoring-approve',views.AdminTutoringApprove.as_view()),
     path('admin-tutoring-return',views.AdminTutoringReturn.as_view()),
     path('image_load', views.image_load),
+    path('image_update/<str:pk>', views.image_update),
     path('get_file/<str:pk>/<str:whatToGet>', views.get_file),
     
     path('weekly-upload',views.WeeklyReportUpload.as_view()),
