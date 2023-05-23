@@ -541,7 +541,6 @@ class AdminWeeklyReturn(APIView):
 ## 학번, 학수번호
 @permission_classes((permissions.AllowAny,))
 class TutoringApply(APIView):
-
     def post(self, request):
         student_id = request.data.get('student_id')
         tutoring_id = request.data.get("tutoring_id")
@@ -551,13 +550,13 @@ class TutoringApply(APIView):
         except StudentInfo.DoesNotExist:
             return Response({"error": "StudentInfo 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
-
         # Tutoring 객체 찾기
         try:
             tutoring = Tutoring.objects.get(tutoring_id=tutoring_id)
         except Tutoring.DoesNotExist:
             return Response({"error": "Tutoring 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
+
         
         # tutoring 인원 확인    
         where = 0
