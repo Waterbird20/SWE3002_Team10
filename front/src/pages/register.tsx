@@ -17,14 +17,6 @@ export default function Register() {
           <InputLeftAddon children="아이디" />
           <Input w="full" bg="white" textAlign="end" />
         </InputGroup>
-        <InputGroup>
-          <InputLeftAddon children="비밀번호" />
-          <Input type="password" w="full" bg="white" textAlign="end" />
-        </InputGroup>
-        <InputGroup>
-          <InputLeftAddon children="비밀번호" />
-          <Input type="password" w="full" bg="white" textAlign="end" />
-        </InputGroup>
       </VStack>
       <HStack w="full" color="white">
         <Button as={Link} href="/" w="full" bg="#8D8E8B">

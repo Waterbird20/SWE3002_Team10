@@ -7,10 +7,10 @@ export default function Home() {
   return (
     <VStack w="full" maxW="1100px" h="auto" spacing="50px">
       <HomeHero />
-      <Flex flexDir={{ base: 'column', md: 'row' }} w="full" gap="50px">
-        <HomeTuteeClassContainer />
-        <HomeTutorClassContainer />
-      </Flex>
+      {/* <Flex flexDir={{ base: 'column', md: 'row' }} w="full" gap="50px"> */}
+      <HomeTuteeClassContainer />
+      {/* <HomeTutorClassContainer /> */}
+      {/* </Flex> */}
     </VStack>
   );
 }

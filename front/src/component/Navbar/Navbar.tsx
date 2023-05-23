@@ -5,23 +5,11 @@ import Link from 'next/link';
 export const Navbar = () => {
   return (
     <HStack spacing="10px" fontWeight={500}>
-      <Menu>
-        <MenuButton w="120px" as={Text} _hover={{ cursor: 'pointer' }}>
+      <Link href="/class/tutee">
+        <Text w="120px" as={Text} _hover={{ cursor: 'pointer' }}>
           모집과목
-        </MenuButton>
-        <MenuList fontSize="xs" minW="120px">
-          <Link href="/class/tutee">
-            <MenuItem fontSize="sm" fontWeight={500}>
-              튜티 - Tutee
-            </MenuItem>
-          </Link>
-          <Link href="/class/tutor">
-            <MenuItem fontSize="sm" fontWeight={500}>
-              튜터 - Tutor
-            </MenuItem>
-          </Link>
-        </MenuList>
-      </Menu>
+        </Text>
+      </Link>
       <Link href="/tutor">
         <Text w="120px" as={Text} _hover={{ cursor: 'pointer' }}>
           튜터
