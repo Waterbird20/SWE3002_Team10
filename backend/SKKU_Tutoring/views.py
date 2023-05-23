@@ -50,6 +50,27 @@ def image_load(request):
     else:
         return HttpResponse("BAD")
     
+#Tutor Image UPDATE 
+@api_view(["POST"])
+@permission_classes((permissions.AllowAny,))
+def image_update(request, pk):
+    tutoring = Tutoring.objects.get(tutoring_id = pk)
+    if(request.method =="POST"):
+        if 'credential_url' in request.FILES:
+            tutoring.credential_url = request.FILES['credential_url']
+        if 'tongjang_url' in request.FILES:
+            tutoring.tongjang_url = request.FILES['tongjang_url']
+        if 'ingunbee_url' in request.FILES:
+            tutoring.ingunbee_url = request.FILES['ingunbee_url']
+        if 'receipt_url' in request.FILES:
+            tutoring.receipt_url = request.FILES['receipt_url']
+        if 'report_url' in request.FILES:
+            tutoring.report_url = request.FILES['report_url']
+        tutoring.save()
+        return HttpResponse("UPDATE")
+    else:
+        return HttpResponse("BAD")
+    
 ## Tutor Data GET
 @api_view(["GET"])
 @permission_classes((permissions.AllowAny,))
