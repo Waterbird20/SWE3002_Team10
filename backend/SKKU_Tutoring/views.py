@@ -383,7 +383,7 @@ class WeeklyReportUpload(APIView):
             
         # 새 Tutoring 객체에 대한 데이터를 준비합니다.
         data = {
-            'report_id': tutoring_id+'_'+num,
+            'report_id': tutoring_id+'_'+str(num),
             'course_number' : course_number,
             'num': num,
             'date_time': date_time,
