@@ -197,7 +197,22 @@ export const TutorCompletionListItem = ({ el }: any) => {
         <Text>{tutor_name}</Text>
       </FlexGridItem>
       <FlexGridItem>
-        <PrimaryButton onClick={onOpen}>승인</PrimaryButton>
+        {status === 'T' ? (
+          <PrimaryButton isDisabled bg="gray.800">
+            승인됨
+          </PrimaryButton>
+        ) : status === 'N' ? (
+          <PrimaryButton isDisabled bg="gray.800">
+            반려됨
+          </PrimaryButton>
+        ) : (
+          <HStack>
+            <PrimaryButton onClick={handleApprove}>승인</PrimaryButton>
+            <PrimaryButton bg="red.700" onClick={handleReject}>
+              반려
+            </PrimaryButton>
+          </HStack>
+        )}
       </FlexGridItem>
     </>
   );
