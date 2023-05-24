@@ -17,6 +17,7 @@ import { FlexGridItem } from '../common/FlexGridItem';
 import { useReportList } from '@/hooks';
 import { useState } from 'react';
 import { admin_weekly_approve, admin_weekly_return } from '../../../api';
+import { useQueryClient } from 'react-query';
 
 export const RejectModal = ({ isOpen, onClose, student_id, course_number, num }: any) => {
   const toast = useToast();
@@ -68,6 +69,7 @@ export const RejectModal = ({ isOpen, onClose, student_id, course_number, num }:
 
 export const TutorReportListItem = ({ el }: { el: any }) => {
   const toast = useToast();
+  const queryClient = useQueryClient();
   const { isOpen: isConfirmOpen, onClose: onConfirmClose, onOpen: onConfirmOpen } = useDisclosure({ id: 'confirm' });
   const { isOpen: isRejectOpen, onClose: onRejectClose, onOpen: onRejectOpen } = useDisclosure({ id: 'reject' });
 
@@ -92,6 +94,7 @@ export const TutorReportListItem = ({ el }: { el: any }) => {
         status: 'success',
       });
       onConfirmClose();
+      queryClient.refetchQueries('reportList');
     } catch (e: any) {
       toast({
         title: e.message,

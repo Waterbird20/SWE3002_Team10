@@ -31,7 +31,7 @@ export const authOptions: NextAuthOptions = {
 
         registered = true;
 
-        if (result.admin === 'Ｔ') role = 'admin';
+        if (result.admin === 'T' || result.admin === 'T') role = 'admin';
         else role = 'student';
 
         return { ...session, role, registered, student_id: result.student_id };
