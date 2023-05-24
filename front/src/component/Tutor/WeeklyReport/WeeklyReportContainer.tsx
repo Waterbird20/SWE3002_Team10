@@ -21,10 +21,12 @@ import { useSession } from 'next-auth/react';
 import { useState } from 'react';
 import { admin_weekly_approve, weekly_upload } from '../../../../api';
 import { PrimaryButton } from '@/component/common/Button';
+import { useQueryClient } from 'react-query';
 
 export const WeeklyReportContainer = () => {
   const toast = useToast();
   const router = useRouter();
+  const queryClient = useQueryClient();
   const { course_number } = router.query;
   const { data: session }: any = useSession();
   const { data } = useMyWeeklyReport({
@@ -75,6 +77,7 @@ export const WeeklyReportContainer = () => {
         title: '주간보고서가 작성되었습니다.',
         status: 'success',
       });
+      queryClient.invalidateQueries('myWeeklyReport');
     } catch (e: any) {
       toast({
         title: e.message,
@@ -181,7 +184,7 @@ export const WeeklyReportContainer = () => {
 
       <Box w="full" h="1px" bg="gray.300" />
 
-      <WeeklyReportList />
+      <WeeklyReportList data={data} />
     </VStack>
   );
 };
