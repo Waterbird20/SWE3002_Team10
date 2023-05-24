@@ -74,9 +74,9 @@ class WeeklyReport(models.Model):
     date_time = models.CharField(max_length = 45)
     time = models.FloatField()
     attendance = models.CharField(max_length = 45)
-    filename = models.CharField(max_length = 45)
+    filename = models.CharField(max_length = 45, blank=True)
     content = models.CharField(max_length=500)
-    image_url = models.CharField(max_length=200)
+    image_url = models.CharField(max_length=200, blank=True)
     approval = models.IntegerField(blank=True)
     class Meta:
         managed = False

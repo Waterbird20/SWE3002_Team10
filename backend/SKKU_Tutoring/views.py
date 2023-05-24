@@ -391,7 +391,7 @@ class WeeklyReportUpload(APIView):
             'attendance' : attendance,
             'content': content,
             # 'image_url' : imageURL,
-            'filename' : course_name +' '+str(num)+'회차 ' + date_time,
+            # 'filename' : course_name +' '+str(num)+'회차 ' + date_time,
             'approval' : '0'
 
         }
