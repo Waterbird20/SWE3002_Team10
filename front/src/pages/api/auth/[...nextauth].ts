@@ -11,8 +11,7 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async signIn({ user, account, profile, email, credentials }) {
-      // if (user && user.email && user.email.split('@')[1] === 'g.skku.edu')
-      return true;
+      if (user && user.email && user.email.split('@')[1] === 'g.skku.edu') return true;
       return false;
     },
     async redirect({ url, baseUrl }) {
