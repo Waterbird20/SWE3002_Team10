@@ -322,7 +322,7 @@ class AdminTutoringApprove(APIView):
             'tutee4': tutee_list[3],
             'tutee5': tutee_list[4],
             'time' : 0,
-            'completion': '',
+            'completion': 'W',
             'mid_report': '',
             'final_report': '',
         }
@@ -886,7 +886,8 @@ class AdminFinalApprove(APIView):
         # WeeklyReport 객체 찾기
         try:
             tutoring = Tutoring.objects.get(tutoring_id=tutoring_id)
-            tutoring.completion = 'T'
+            tutoring.completion = 'Y'
+            tutoring.save()
         except WeeklyReport.DoesNotExist:
             return Response({"error": "Tutoring 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
@@ -908,7 +909,8 @@ class AdminFinalReturn(APIView):
         # WeeklyReport 객체 찾기
         try:
             tutoring = Tutoring.objects.get(tutoring_id=tutoring_id)
-            tutoring.completion = return_reason
+            tutoring.completion = 'N'
+            tutoring.save()
         except WeeklyReport.DoesNotExist:
             return Response({"error": "Tutoring 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
