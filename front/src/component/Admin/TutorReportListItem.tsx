@@ -178,7 +178,7 @@ export const TutorReportListItem = ({ el }: { el: any }) => {
       <Text onClick={onConfirmOpen}>{course_number}</Text>
       <HStack spacing="20px">
         <Text>{student_id}</Text>
-        {approval ? (
+        {approval === 1 ? (
           <PrimaryButton isDisabled bg="gray.800">
             승인됨
           </PrimaryButton>
