@@ -367,7 +367,7 @@ class WeeklyReportUpload(APIView):
         num = request.data.get('num')
         date_time = request.data.get("date_time")
         attendance = request.data.get("attendance")
-        imageURL = request.data.get('imageURL')
+        # imageURL = request.data.get('imageURL')
         time = request.data.get('time')
         course_name = request.data.get('course_name')
         content = request.data.get("content")
@@ -390,7 +390,7 @@ class WeeklyReportUpload(APIView):
             'time' : time,
             'attendance' : attendance,
             'content': content,
-            'image_url' : imageURL,
+            # 'image_url' : imageURL,
             'filename' : course_name +' '+str(num)+'회차 ' + date_time,
             'approval' : '0'
 
