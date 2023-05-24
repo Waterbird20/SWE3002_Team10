@@ -64,12 +64,12 @@ export const TutorConfirmListItem = ({ el }: { el: any }) => {
         student_id: tutoring_id.split('_')[0],
       });
 
-      if (!res.ok) throw new Error('승인 실패');
-
       toast({
         title: '승인 성공',
         status: 'success',
       });
+      queryClient.invalidateQueries('waitingTutoringList');
+      queryClient.invalidateQueries('approvedTutoringList');
     } catch (e: any) {
       toast({
         title: e.message,
