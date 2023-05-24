@@ -21,6 +21,8 @@ import { useQueryClient } from 'react-query';
 
 export const RejectModal = ({ isOpen, onClose, student_id, course_number, num }: any) => {
   const toast = useToast();
+  const queryClient = useQueryClient();
+
   const handleReject = async () => {
     try {
       const res = await admin_weekly_return({
@@ -38,6 +40,7 @@ export const RejectModal = ({ isOpen, onClose, student_id, course_number, num }:
       });
 
       onClose();
+      queryClient.refetchQueries('reportList');
     } catch (e: any) {
       toast({
         title: e.message,
