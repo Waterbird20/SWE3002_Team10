@@ -856,6 +856,7 @@ def AdminWaitingFinalList(request):
         tutoring = get_object_or_404(Tutoring, tutoring_id=key)
         student = get_object_or_404(StudentInfo, student_id = student_id)
         final_data = {
+            'tutoring_id': key,
             'course_name' : tutoring.course_name,
             'course_id' : tutoring.course_number,
             'total_count' : val[0],

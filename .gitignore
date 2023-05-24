@@ -42,5 +42,6 @@ next-env.d.ts
 *.pyc.venv
 **/.venv
 
+**/media
 
 __pycache__/
