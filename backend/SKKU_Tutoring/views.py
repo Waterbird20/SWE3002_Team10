@@ -559,7 +559,7 @@ class AdminWeeklyReturn(APIView):
 
         except Tutoring.DoesNotExist:
             return JsonResponse({'error': 'Invalid tutoring_id'}, status=400)
-        return JsonResponse({'success': 'Weekly report has been successfully approved'}, status=200)
+        return JsonResponse({'success': 'Weekly report has been successfully rejected'}, status=200)
 
 ## 튜터링 신청(튜티)
 ## 학번, 학수번호
@@ -890,6 +890,8 @@ class AdminFinalApprove(APIView):
         except WeeklyReport.DoesNotExist:
             return Response({"error": "Tutoring 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
+        return JsonResponse({'success': 'Final has been successfully approved'}, status=200)
+
              
 ## 최종보고서 반려
 ## 학번, 학수번호, 반려사유
@@ -910,3 +912,4 @@ class AdminFinalReturn(APIView):
         except WeeklyReport.DoesNotExist:
             return Response({"error": "Tutoring 객체를 찾을 수 없습니다."},
                             status=status.HTTP_404_NOT_FOUND)
+        return JsonResponse({'success': 'Final has been successfully rejected.'}, status=200)
