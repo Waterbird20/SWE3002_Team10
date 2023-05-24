@@ -23,7 +23,8 @@ export const TuteeClassListItem = ({ el }: { el: any }) => {
     tutoring_id,
   } = el;
 
-  const tuteeNum = tutee.split(',').length;
+  const tuteeArr = tutee.split(',').filter((el: any) => el);
+  const tuteeNum = tuteeArr.length;
 
   const handleApply = async () => {
     try {
@@ -56,7 +57,13 @@ export const TuteeClassListItem = ({ el }: { el: any }) => {
       <HStack fontSize="xs">
         <Text>{tutoring_id.split('_')[0]}</Text>
         <Text>({tuteeNum}/5)</Text>
-        <PrimaryButton onClick={handleApply}>신청</PrimaryButton>
+        {tuteeArr.includes(data?.student_id) ? (
+          <PrimaryButton bg="gray.800" isDisabled>
+            신청됨
+          </PrimaryButton>
+        ) : (
+          <PrimaryButton onClick={handleApply}>신청</PrimaryButton>
+        )}
       </HStack>
     </HStack>
   );

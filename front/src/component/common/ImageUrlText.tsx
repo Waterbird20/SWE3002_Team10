@@ -31,7 +31,7 @@ export const ImageUrlText = ({ url, tutoring_id }: { url: string; tutoring_id: s
         const url = URL.createObjectURL(blob);
 
         const downloadLink = document.createElement('a');
-        downloadLink.download = url;
+        downloadLink.download = `downloadedImage_${new Date().toLocaleString()}.png`; // Set this to your desired filename
         downloadLink.href = url;
         downloadLink.style.display = 'none';
         document.body.appendChild(downloadLink);

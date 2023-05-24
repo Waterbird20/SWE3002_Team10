@@ -8,6 +8,7 @@ import {
   ModalHeader,
   ModalOverlay,
   Text,
+  Textarea,
   VStack,
   useDisclosure,
   useToast,
@@ -15,10 +16,58 @@ import {
 import { FlexGridItem } from '../common/FlexGridItem';
 import { ImageUrlText } from '../common/ImageUrlText';
 import { admin_final_approve, admin_final_return } from '../../../api';
+import { useState } from 'react';
+
+export const RejectModal = ({ isOpen, onClose, student_id, course_number, num }: any) => {
+  const toast = useToast();
+  const [text, setText] = useState('');
+
+  const handleReject = async () => {
+    try {
+      const res = await admin_final_return({
+        student_id,
+        course_number,
+        text,
+      });
+
+      if (!res.ok) throw new Error('승인 실패');
+
+      toast({
+        title: '승인 완료',
+        status: 'success',
+      });
+    } catch (e: any) {
+      toast({
+        title: e.message,
+        status: 'error',
+      });
+    }
+  };
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+      <ModalContent>
+        <ModalHeader>
+          <Text>반려사유</Text>
+        </ModalHeader>
+        <ModalBody>
+          <VStack w="full">
+            <Textarea w="full" value={text} onChange={(e) => setText(e.target.value)} />
+            <HStack w="full" justify="flex-end">
+              <PrimaryButton onClick={handleReject}>확인</PrimaryButton>
+            </HStack>
+          </VStack>
+        </ModalBody>
+      </ModalContent>
+    </Modal>
+  );
+};
 
 export const TutorCompletionListItem = ({ el }: any) => {
   const toast = useToast();
   const { isOpen, onClose, onOpen } = useDisclosure();
+  const { isOpen: isRejectOpen, onClose: onRejectClose, onOpen: onRejectOpen } = useDisclosure({ id: 'reject' });
 
   const {
     course_name,
@@ -59,31 +108,15 @@ export const TutorCompletionListItem = ({ el }: any) => {
     }
   };
 
-  const handleReject = async () => {
-    try {
-      const res = await admin_final_return({
-        student_id: tutoring_id.split('_')[0],
-        course_number: course_id,
-        return_reason: '',
-      });
-
-      if (!res.ok) throw new Error('승인 실패');
-
-      toast({
-        title: '승인 완료',
-        status: 'success',
-      });
-    } catch (e: any) {
-      toast({
-        title: e.message,
-        status: 'error',
-      });
-    }
-  };
-
   return (
     <>
       <FlexGridItem justifyContent="flex-start" onClick={onOpen}>
+        <RejectModal
+          isOpen={isRejectOpen}
+          onClose={onRejectClose}
+          student_id={tutoring_id.split('_')[0]}
+          course_number={course_id}
+        />
         <Modal isOpen={isOpen} onClose={onClose}>
           <ModalOverlay />
           <ModalContent>
@@ -171,7 +204,7 @@ export const TutorCompletionListItem = ({ el }: any) => {
                 </VStack>
 
                 <HStack w="full">
-                  <PrimaryButton w="full" bg="gray" onClick={handleReject}>
+                  <PrimaryButton w="full" bg="gray" onClick={onRejectOpen}>
                     반려
                   </PrimaryButton>
                   <PrimaryButton w="full" onClick={handleApprove}>
@@ -208,7 +241,7 @@ export const TutorCompletionListItem = ({ el }: any) => {
         ) : (
           <HStack>
             <PrimaryButton onClick={handleApprove}>승인</PrimaryButton>
-            <PrimaryButton bg="red.700" onClick={handleReject}>
+            <PrimaryButton bg="red.700" onClick={onRejectOpen}>
               반려
             </PrimaryButton>
           </HStack>
