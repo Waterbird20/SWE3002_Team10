@@ -78,7 +78,7 @@ export const TutorReportListItem = ({ el }: { el: any }) => {
 
   const { attendance, content, course_number, date_time, approval, filename, image_url, num, report_id, time } = el;
   const student_id = report_id.split('_')[0];
-  const [start_timestamp, end_timestamp] = date_time.split('~');
+  const [start_timestamp, end_timestamp] = date_time.split('_');
   const attendArr = attendance.split('').filter((el: any) => el !== '-');
 
   const handleApprove = async () => {
