@@ -32,6 +32,7 @@ export const WeeklyReportContainer = () => {
     course_number,
   });
   const [inputs, setInputs] = useState({
+    num: '',
     from: '',
     to: '',
     one: '',
@@ -52,7 +53,7 @@ export const WeeklyReportContainer = () => {
       const params: any = {
         student_id: session?.student_id,
         course_number,
-        num: data.length + 1,
+        num: inputs.num,
         attendance:
           (inputs.one ? inputs.one : '-') +
           (inputs.two ? inputs.two : '-') +
@@ -99,6 +100,23 @@ export const WeeklyReportContainer = () => {
       </Flex>
       <HStack w="full" align="flex-start" spacing="50px">
         <VStack w="50%" align="flex-start">
+          <HStack w="full" align="flex-start">
+            <Text w="80px" fontWeight={600}>
+              회차
+            </Text>
+            <Input w="full" value={inputs.num} onChange={(e) => setInputs({ ...inputs, num: e.target.value })} />
+          </HStack>
+          <HStack w="full" align="flex-start">
+            <Text w="80px" fontWeight={600}>
+              학습내용
+            </Text>
+            <Textarea
+              w="full"
+              placeholder="100자 이내"
+              value={inputs.content}
+              onChange={(e) => setInputs({ ...inputs, content: e.target.value })}
+            />
+          </HStack>
           <Text w="80px" fontWeight={600}>
             시간
           </Text>
@@ -112,17 +130,6 @@ export const WeeklyReportContainer = () => {
               <Input w="full" type="datetime-local" onChange={(e) => setInputs({ ...inputs, to: e.target.value })} />
             </HStack>
           </VStack>
-          <HStack w="full" align="flex-start">
-            <Text w="80px" fontWeight={600}>
-              학습내용
-            </Text>
-            <Textarea
-              w="full"
-              placeholder="100자 이내"
-              value={inputs.content}
-              onChange={(e) => setInputs({ ...inputs, content: e.target.value })}
-            />
-          </HStack>
         </VStack>
 
         <VStack w="50%" align="flex-start">
