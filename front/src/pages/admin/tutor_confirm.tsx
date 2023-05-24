@@ -6,7 +6,6 @@ import { Grid, HStack, Input, Spinner, Text, VStack } from '@chakra-ui/react';
 const TutorConfirm = () => {
   const { data: waitingList } = useWaitingTutoringList();
   const { data: approvedList } = useApprovedTutoringList();
-  console.log(waitingList, approvedList);
 
   if (!waitingList || !approvedList) return <Spinner />;
 

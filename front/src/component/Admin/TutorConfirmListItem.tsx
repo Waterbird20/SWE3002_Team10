@@ -12,12 +12,13 @@ import {
 } from '@chakra-ui/react';
 import { FlexGridItem } from '../common/FlexGridItem';
 import { admin_tutoring_approve, admin_tutoring_return } from '../../../api';
+import { useQueryClient } from 'react-query';
 
 export const TutorConfirmListItem = ({ el }: { el: any }) => {
   const { isOpen, onClose, onOpen } = useDisclosure();
   const toast = useToast();
+  const queryClient = useQueryClient();
 
-  console.log(el);
   const {
     approval,
     course_number,
@@ -46,6 +47,8 @@ export const TutorConfirmListItem = ({ el }: { el: any }) => {
         title: '승인 성공',
         status: 'success',
       });
+      queryClient.invalidateQueries('waitingTutoringList');
+      queryClient.invalidateQueries('approvedTutoringList');
     } catch (e: any) {
       toast({
         title: e.message,

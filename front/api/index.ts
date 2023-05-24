@@ -90,6 +90,12 @@ export async function all_student() {
   });
 }
 
+export async function get_files(tutoring_id: string, url: string) {
+  return fetch(`${ADMIN_API_BASE_URL}/get_file/${tutoring_id}/${url}`, {
+    method: 'GET',
+  });
+}
+
 export async function get_made_tutoring(id: string) {
   return fetch(`${ADMIN_API_BASE_URL}/get-made-tutoring/${id}/`, {
     method: 'GET',
@@ -105,6 +111,13 @@ export async function get_tutoring(id: string, course_number: string) {
 // 이미지 업로드
 export async function image_load(data: FormData) {
   return fetch(`${ADMIN_API_BASE_URL}/image_load`, {
+    method: 'POST',
+    body: data,
+  });
+}
+
+export async function image_update(tutoring_id: string, data: FormData) {
+  return fetch(`${ADMIN_API_BASE_URL}/image_update/${tutoring_id}`, {
     method: 'POST',
     body: data,
   });

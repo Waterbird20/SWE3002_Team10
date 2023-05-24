@@ -25,14 +25,16 @@ export const authOptions: NextAuthOptions = {
       try {
         if (!token.email) throw new Error('No email');
         const res = await account_show(token?.email);
+        // console.log(res);
         const result = await res.json();
+        // console.log(result);
 
         registered = true;
 
-        if (result.admin === 'T') role = 'admin';
+        if (result.admin === 'Ｔ') role = 'admin';
         else role = 'student';
 
-        return { ...session, role, registered };
+        return { ...session, role, registered, student_id: result.student_id };
       } catch {
         return { ...session, role, registered };
       }

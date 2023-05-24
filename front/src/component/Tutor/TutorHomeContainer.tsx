@@ -20,8 +20,10 @@ import { PrimaryButton } from '../common/Button';
 import { useState } from 'react';
 import { tutoring_apply, tutoring_propose } from '../../../api';
 import { useMadeTutoring } from '@/hooks';
+import { useSession } from 'next-auth/react';
 
 export const TutorHomeContainer = () => {
+  const { data }: any = useSession();
   const { isOpen, onClose, onOpen } = useDisclosure();
   const toast = useToast();
   const [inputs, setInputs] = useState<{
@@ -41,11 +43,13 @@ export const TutorHomeContainer = () => {
     syllabus: '',
     available_time: '',
   });
-  const { data: madeTutoring } = useMadeTutoring('2019315408');
+
+  //@ts-ignore
+  const { data: madeTutoring } = useMadeTutoring(data.student_id);
 
   const handlePropose = async () => {
     try {
-      const res = await tutoring_propose({ ...inputs, student_id: '2019315408', tutee: '' });
+      const res = await tutoring_propose({ ...inputs, student_id: data.student_id, tutee: '' });
 
       if (!res.ok) throw new Error('신청 실패');
 

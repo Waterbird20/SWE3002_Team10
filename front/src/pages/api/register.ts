@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import { account_register } from '../../../api';
-import { decode } from 'next-auth/jwt';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (!req.body) return res.status(400).json({ message: 'No body provided' });
