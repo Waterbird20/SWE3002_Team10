@@ -909,7 +909,7 @@ class AdminFinalReturn(APIView):
         # WeeklyReport 객체 찾기
         try:
             tutoring = Tutoring.objects.get(tutoring_id=tutoring_id)
-            tutoring.completion = 'N'
+            tutoring.completion = return_reason
             tutoring.save()
         except WeeklyReport.DoesNotExist:
             return Response({"error": "Tutoring 객체를 찾을 수 없습니다."},
