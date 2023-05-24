@@ -71,7 +71,7 @@ export const TutorReportListItem = ({ el }: { el: any }) => {
   const { isOpen: isConfirmOpen, onClose: onConfirmClose, onOpen: onConfirmOpen } = useDisclosure({ id: 'confirm' });
   const { isOpen: isRejectOpen, onClose: onRejectClose, onOpen: onRejectOpen } = useDisclosure({ id: 'reject' });
 
-  const { attendance, content, course_number, date_time, filename, image_url, num, report_id, time } = el;
+  const { attendance, content, course_number, date_time, approval, filename, image_url, num, report_id, time } = el;
   const student_id = report_id.split('_')[0];
   const [start_timestamp, end_timestamp] = date_time.split('~');
   const attendArr = attendance.split('').filter((el: any) => el !== '-');
@@ -172,12 +172,22 @@ export const TutorReportListItem = ({ el }: { el: any }) => {
       <Text onClick={onConfirmOpen}>{course_number}</Text>
       <HStack spacing="20px">
         <Text>{student_id}</Text>
-        <HStack>
-          <PrimaryButton onClick={handleApprove}>승인</PrimaryButton>
-          <PrimaryButton bg="red.700" onClick={onRejectOpen}>
-            반려
+        {approval ? (
+          <PrimaryButton isDisabled bg="gray.800">
+            승인됨
           </PrimaryButton>
-        </HStack>
+        ) : approval === -1 ? (
+          <PrimaryButton isDisabled bg="gray.800">
+            반려됨
+          </PrimaryButton>
+        ) : (
+          <HStack>
+            <PrimaryButton onClick={handleApprove}>승인</PrimaryButton>
+            <PrimaryButton bg="red.700" onClick={onRejectOpen}>
+              반려
+            </PrimaryButton>
+          </HStack>
+        )}
       </HStack>
     </HStack>
   );

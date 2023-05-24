@@ -170,6 +170,7 @@ export const TutorHomeContainer = () => {
       </HStack>
       <VStack w="full" spacing="20px">
         {madeTutoring.map((el: any) => {
+          if (!el?.course_name) return null;
           return (
             <HStack w="full" justify="space-between">
               <Text fontWeight={500}>{el.course_name}</Text>

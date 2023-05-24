@@ -27,8 +27,8 @@ export const TuteeClassContainer = () => {
         <Input w="300px" bg="white" type="search" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
       </HStack>
       <VStack w="full" spacing="12px">
-        {(searchTerm ? filteredClassList : approvedList).map((el: any) => (
-          <TuteeClassListItem el={el} />
+        {(searchTerm ? filteredClassList : approvedList).map((el: any, i: any) => (
+          <TuteeClassListItem el={el} key={i} />
         ))}
       </VStack>
     </VStack>

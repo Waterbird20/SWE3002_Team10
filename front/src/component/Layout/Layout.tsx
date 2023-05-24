@@ -27,7 +27,7 @@ export const Layout = ({ children }: { children: ReactNode }) => {
   const [isSm] = useMediaQuery('(max-width: 768px)');
   const { data, status } = useSession();
   const router = useRouter();
-  // console.log(data);
+  console.log(data);
 
   useEffect(() => {
     //@ts-ignore

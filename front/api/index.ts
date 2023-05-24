@@ -32,6 +32,16 @@ export async function admin_final_approve(data: Object) {
   });
 }
 
+export async function admin_final_return(data: Object) {
+  return fetch(`${ADMIN_API_BASE_URL}/admin-final-return`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  });
+}
+
 export async function admin_tutoring_approve(data: Object) {
   return fetch(`${ADMIN_API_BASE_URL}/admin-tutoring-approve`, {
     method: 'POST',
@@ -60,6 +70,12 @@ export async function admin_waiting_tutoring_list() {
 
 export async function admin_waiting_weekly_list() {
   return fetch(`${ADMIN_API_BASE_URL}/admin-waiting-weekly-list`, {
+    method: 'GET',
+  });
+}
+
+export async function admin_waiting_final_list() {
+  return fetch(`${ADMIN_API_BASE_URL}/admin-waiting-final-list`, {
     method: 'GET',
   });
 }

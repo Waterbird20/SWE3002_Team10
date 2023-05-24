@@ -1,6 +1,7 @@
 import { useQuery } from 'react-query';
 import {
   admin_approved_tutoring_list,
+  admin_waiting_final_list,
   admin_waiting_tutoring_list,
   admin_waiting_weekly_list,
   all_student,
@@ -19,6 +20,13 @@ export const useAllStudent = () => {
 export const useWaitingTutoringList = () => {
   return useQuery('waitingTutoringList', async () => {
     const res = await admin_waiting_tutoring_list();
+    return res.json();
+  });
+};
+
+export const useWaitingFinalList = () => {
+  return useQuery('waitingFinalList', async () => {
+    const res = await admin_waiting_final_list();
     return res.json();
   });
 };
